@@ -10,8 +10,11 @@ namespace EverDarker
 {
     class WallSprite
     {
-        //The current position of the Sprite
-        public Vector2 Position = new Vector2(0, 0);
+        //The current position of the WallSprite
+        public Vector2 Position = new Vector2(0,0);
+
+        //The Bounding Box of the WallSprite
+        public Rectangle boundingBox;
 
         //The texture object used when drawing the sprite
         private Texture2D spriteTexture;
@@ -19,13 +22,23 @@ namespace EverDarker
         //Load the texture for the sprite using the Content Pipeline
         public void LoadContent(ContentManager theContentManager)
         {
-            spriteTexture = theContentManager.Load<Texture2D>("Carpet");
+            spriteTexture = theContentManager.Load<Texture2D>("Cubicle-TwoSided");
         }
         
         //Draw the sprite to the screen 
         public void Draw(SpriteBatch theSpriteBatch)
         {
             theSpriteBatch.Draw(spriteTexture, Position, Color.White);
+        }
+
+        public void Move(int horz, int vert)
+        {
+            Position.X += horz;
+            Position.Y += vert;
+
+            boundingBox.X = (int)Position.X;
+            boundingBox.Y = (int)Position.Y;
+
         }
     }
 }
