@@ -88,21 +88,58 @@ namespace EverDarker
             grid[0][0].Position.X = rand.Next(viewPort.Width - grid[0][0].spriteTexture.Width);
         }
 
+        void RotateX(KeyboardState newstate, float upMax, float downMax, float xMax)
+        {
+            float rotateSpeed = .03f;
+            float margin = .03f;
+            if (newstate.IsKeyDown(Keys.Up))
+            {
+                if (player.RotationAngle < upMax - margin)
+                    player.RotationAngle += rotateSpeed;
+                else if (player.RotationAngle > upMax + margin)
+                    player.RotationAngle -= rotateSpeed;
+            }
+            if (newstate.IsKeyDown(Keys.Down))
+            {
+                if (player.RotationAngle < downMax - margin)
+                    player.RotationAngle += rotateSpeed;
+                else if (player.RotationAngle > downMax + margin)
+                    player.RotationAngle -= rotateSpeed;
+            }
+            if (newstate.IsKeyUp(Keys.Down) && newstate.IsKeyUp(Keys.Up))
+            {
+                if (player.RotationAngle < xMax - margin)
+                    player.RotationAngle += rotateSpeed;
+                else if (player.RotationAngle > xMax + margin)
+                    player.RotationAngle -= rotateSpeed;
+            }
+        }
+
+        void RotateY(KeyboardState newstate, float center)
+        {
+            
+        }
+
         void BasicMovement(GameTime gameTime)
         {
             KeyboardState newstate = Keyboard.GetState();
             Viewport viewport = graphics.GraphicsDevice.Viewport;
-            // The time since Update was called last.
-            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float moveSpeed = 1;
 
             if (newstate.IsKeyDown(Keys.Up))
             {
-                if (player.RotationAngle < 0)
-                    player.RotationAngle += elapsed;
-                else if (player.RotationAngle > 0)
-                    player.RotationAngle -= elapsed;
-                floor.UpdateY(elapsed * 100);
-
+                //Rotate
+                float rotateSpeed = .03f;
+                float margin = .03f;
+                if (newstate.IsKeyUp(Keys.Right) && newstate.IsKeyUp(Keys.Left))
+                {
+                    if (player.RotationAngle < 0f - margin)
+                        player.RotationAngle += rotateSpeed;
+                    else if (player.RotationAngle > 0f + margin)
+                        player.RotationAngle -= rotateSpeed;
+                }
+                //Movement
+                floor.UpdateY(moveSpeed);
                 for (int i = 0; i <= grid.Count - 1; i++)
                 {
                     for (int j = 0; j <= grid[i].Count - 1; j++)
@@ -111,18 +148,13 @@ namespace EverDarker
                         if (!player.boundingBox.Intersects(wallRectangle))
                         {
                             grid[i][j].Move(0, 3);
-                        }            
+                        }
                     }
                 }
             }
             if (newstate.IsKeyDown(Keys.Down))
             {
-                if (player.RotationAngle < 0)
-                    player.RotationAngle -= elapsed;
-                else if (player.RotationAngle > 0)
-                    player.RotationAngle += elapsed;
-                floor.UpdateY(elapsed * -100);
-
+                floor.UpdateY(-moveSpeed);
                 for (int i = 0; i <= grid.Count - 1; i++)
                 {
                     for (int j = 0; j <= grid[i].Count - 1; j++)
@@ -133,111 +165,28 @@ namespace EverDarker
             }
             if (newstate.IsKeyDown(Keys.Right))
             {
-                floor.UpdateX(elapsed * -100);
+                RotateX(newstate, .785f, 2.355f, 1.57f);
+                floor.UpdateX(-moveSpeed);
                 for (int i = 0; i <= grid.Count - 1; i++)
                 {
                     for (int j = 0; j <= grid[i].Count - 1; j++)
                     {
-                        grid[i][j].Move(-3,0);
+                        grid[i][j].Move(-3, 0);
                     }
                 }
             }
             if (newstate.IsKeyDown(Keys.Left))
             {
-                floor.UpdateX(elapsed * 100);
-
+                RotateX(newstate, -.785f, -2.355f, -1.57f);
+                floor.UpdateX(moveSpeed);
                 for (int i = 0; i <= grid.Count - 1; i++)
                 {
                     for (int j = 0; j <= grid[i].Count - 1; j++)
                     {
-                        grid[i][j].Move(3,0);
+                        grid[i][j].Move(3, 0);
                     }
                 }
             }
-           
-            /*
-            if(newstate.IsKeyDown(Keys.Up))
-            {
-                if (newstate.IsKeyUp(Keys.Right) && newstate.IsKeyUp(Keys.Left))
-                {
-                    if (player.RotationAngle < 0)
-                        player.RotationAngle += elapsed;
-                    else if (player.RotationAngle > 0)
-                        player.RotationAngle -= elapsed;
-                }
-                floor.UpdateY(elapsed * 100);                
-                floor.UpdateY(elapsed * 100);
-
-                if(
-                for (int i = 0; i <= grid.Count-1; i++)
-                {
-                    for (int j = 0; j <= grid[i].Count-1; j++)
-                    {
-                        grid[i][j].Move(0, 3);
-                    }
-                }
-            }
-
-            if (newstate.IsKeyDown(Keys.Down))
-            {
-                if (newstate.IsKeyUp(Keys.Right) && newstate.IsKeyUp(Keys.Left))
-                {
-                    if (player.RotationAngle < .314)
-                        player.RotationAngle += elapsed;
-                    else if (player.RotationAngle > .314)
-                        player.RotationAngle -= elapsed;
-                }
-                floor.UpdateY(elapsed * -100);                
-                floor.UpdateY(elapsed * -100);
-                grid[0][0].Position.Y -= 5;
-            }
-
-            if (newstate.IsKeyDown(Keys.Right))
-            {
-                //Rotation
-                if (newstate.IsKeyUp(Keys.Down) && newstate.IsKeyDown(Keys.Up))
-                {
-                    if (player.RotationAngle < .785)
-                        player.RotationAngle += elapsed;
-                }
-                else if (newstate.IsKeyUp(Keys.Up) && newstate.IsKeyDown(Keys.Down))
-                {
-                    if (player.RotationAngle < 2.355)
-                        player.RotationAngle += elapsed;
-                }
-                else if (newstate.IsKeyUp(Keys.Up) && newstate.IsKeyUp(Keys.Down))
-                {
-                    if (player.RotationAngle < 1.57)
-                        player.RotationAngle += elapsed;
-                }
-
-                floor.UpdateX(elapsed * -100);
-                grid[0][0].Position.X += 5;
-            }
-
-            if (newstate.IsKeyDown(Keys.Left))
-            {
-                //Rotation
-                if (newstate.IsKeyUp(Keys.Down) && newstate.IsKeyDown(Keys.Up))
-                {
-                    if (player.RotationAngle > -.785)
-                        player.RotationAngle -= elapsed;
-                }
-                else if (newstate.IsKeyUp(Keys.Up) && newstate.IsKeyDown(Keys.Down))
-                {
-                    if (player.RotationAngle > -2.355)
-                        player.RotationAngle -= elapsed;
-                }
-                else if (newstate.IsKeyUp(Keys.Up) && newstate.IsKeyUp(Keys.Down))
-                {
-                    if (player.RotationAngle > -1.57)
-                        player.RotationAngle -= elapsed;
-                }
-                
-                floor.UpdateX(elapsed * 100);
-                grid[0][0].Position.X -= 5;
-            }
-             */
             float circle = MathHelper.Pi * 2;
             player.RotationAngle = player.RotationAngle % circle;
         }
