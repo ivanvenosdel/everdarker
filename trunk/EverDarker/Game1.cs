@@ -22,7 +22,7 @@ namespace EverDarker
         SpriteBatch spriteBatch;
 
         //Background
-        Sprite floor;
+        ScrollingBackground floor;
 
         //Character
         Character player;
@@ -50,8 +50,9 @@ namespace EverDarker
             ZeroPosition.Y = 0;
 
             //floor
-            floor = new Sprite();
-            floor.Scale = .5f;
+            floor = new ScrollingBackground();
+            //floor = new Sprite();
+            //floor.Scale = .5f;
             //character
             player = new Character();
             
@@ -69,8 +70,8 @@ namespace EverDarker
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //Floor
-            floor.LoadContent(this.Content, "Carpet");
-            floor.Position = new Vector2(ZeroPosition.X, ZeroPosition.Y);
+            Texture2D floorTexture = Content.Load<Texture2D>("Carpet");
+            floor.Load(graphics.GraphicsDevice, floorTexture);
 
             //Player
             Viewport viewPort = graphics.GraphicsDevice.Viewport;
@@ -87,31 +88,27 @@ namespace EverDarker
         {
             KeyboardState newstate = Keyboard.GetState();
             Viewport viewport = graphics.GraphicsDevice.Viewport;
+            // The time since Update was called last.
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
            
             if(newstate.IsKeyDown(Keys.Up))
             {
-                
+                floor.UpdateY(elapsed * 100);                
             }
 
             if (newstate.IsKeyDown(Keys.Down))
             {
-
+                floor.UpdateY(elapsed * -100);                
             }
 
             if (newstate.IsKeyDown(Keys.Right))
             {
-                float elapsed = .1f;
-                //rotationAngle += elapsed;
-                float circle = MathHelper.Pi * 2;
-                //rotationAngle = rotationAngle % circle;
+                floor.UpdateX(elapsed * -100);
             }
 
             if (newstate.IsKeyDown(Keys.Left))
             {
-                float elapsed = -.1f;
-                //rotationAngle += elapsed;
-                float circle = MathHelper.Pi * 2;
-                //rotationAngle = rotationAngle % circle;
+                floor.UpdateX(elapsed * 100);
             }
         }
 
@@ -135,19 +132,10 @@ namespace EverDarker
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // The time since Update was called last.
+            
 
             // TODO: Add your update logic here
-
-            if (floor.Position.X < -floor.Size.Width)
-            {
-                floor.Position.X = floor.Position.X + floor.Size.Width;
-            }
-            Vector2 aDirection = new Vector2(-1, 0);
-            Vector2 aSpeed = new Vector2(160, 0);
-            floor.Position += aDirection * aSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            //BasicMovement(gameTime);
+            BasicMovement(gameTime);
 
             base.Update(gameTime);
         }
