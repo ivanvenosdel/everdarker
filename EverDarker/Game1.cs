@@ -102,6 +102,18 @@ namespace EverDarker
                 else if (player.RotationAngle > 0)
                     player.RotationAngle -= elapsed;
                 floor.UpdateY(elapsed * 100);
+
+                for (int i = 0; i <= grid.Count - 1; i++)
+                {
+                    for (int j = 0; j <= grid[i].Count - 1; j++)
+                    {
+                        Rectangle wallRectangle = new Rectangle((int)grid[i][j].Position.X, (int)grid[i][j].Position.Y, grid[i][j].spriteTexture.Width, grid[i][j].spriteTexture.Height);
+                        if (!player.boundingBox.Intersects(wallRectangle))
+                        {
+                            grid[i][j].Move(0, 3);
+                        }            
+                    }
+                }
             }
             if (newstate.IsKeyDown(Keys.Down))
             {
@@ -110,14 +122,37 @@ namespace EverDarker
                 else if (player.RotationAngle > 0)
                     player.RotationAngle += elapsed;
                 floor.UpdateY(elapsed * -100);
+
+                for (int i = 0; i <= grid.Count - 1; i++)
+                {
+                    for (int j = 0; j <= grid[i].Count - 1; j++)
+                    {
+                        grid[i][j].Move(0, -3);
+                    }
+                }
             }
             if (newstate.IsKeyDown(Keys.Right))
             {
                 floor.UpdateX(elapsed * -100);
+                for (int i = 0; i <= grid.Count - 1; i++)
+                {
+                    for (int j = 0; j <= grid[i].Count - 1; j++)
+                    {
+                        grid[i][j].Move(-3,0);
+                    }
+                }
             }
             if (newstate.IsKeyDown(Keys.Left))
             {
                 floor.UpdateX(elapsed * 100);
+
+                for (int i = 0; i <= grid.Count - 1; i++)
+                {
+                    for (int j = 0; j <= grid[i].Count - 1; j++)
+                    {
+                        grid[i][j].Move(3,0);
+                    }
+                }
             }
            
             /*
@@ -133,11 +168,12 @@ namespace EverDarker
                 floor.UpdateY(elapsed * 100);                
                 floor.UpdateY(elapsed * 100);
 
+                if(
                 for (int i = 0; i <= grid.Count-1; i++)
                 {
                     for (int j = 0; j <= grid[i].Count-1; j++)
                     {
-                        grid[i][j].Position.Y += 3;
+                        grid[i][j].Move(0, 3);
                     }
                 }
             }
