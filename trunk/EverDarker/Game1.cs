@@ -79,30 +79,36 @@ namespace EverDarker
             // TODO: use this.Content to load your game content here
         }
 
-        void BasicMovement()
+        void BasicMovement(GameTime gameTime)
         {
             KeyboardState newstate = Keyboard.GetState();
-
+            Viewport viewport = graphics.GraphicsDevice.Viewport;
+           
             if(newstate.IsKeyDown(Keys.Up))
             {
-                screenPos.Y -= characterSpeed;
+                
             }
 
             if (newstate.IsKeyDown(Keys.Down))
             {
-                screenPos.Y += characterSpeed;
+
             }
 
             if (newstate.IsKeyDown(Keys.Right))
             {
-                screenPos.X += characterSpeed;
+                float elapsed = .1f;
+                rotationAngle += elapsed;
+                float circle = MathHelper.Pi * 2;
+                rotationAngle = rotationAngle % circle;
             }
 
             if (newstate.IsKeyDown(Keys.Left))
             {
-                screenPos.X -= characterSpeed;
+                float elapsed = -.1f;
+                rotationAngle += elapsed;
+                float circle = MathHelper.Pi * 2;
+                rotationAngle = rotationAngle % circle;
             }
-
         }
 
         /// <summary>
@@ -126,14 +132,11 @@ namespace EverDarker
                 this.Exit();
 
             // The time since Update was called last.
-            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // TODO: Add your update logic here
-            rotationAngle += elapsed;
-            float circle = MathHelper.Pi * 2;
-            rotationAngle = rotationAngle % circle;
 
-            BasicMovement();
+
+            BasicMovement(gameTime);
 
             base.Update(gameTime);
         }
@@ -149,7 +152,8 @@ namespace EverDarker
             spriteBatch.Begin();
             spriteBatch.Draw(carpetTexture,ZeroPosition, Color.White);
             spriteBatch.Draw(this.player.texture, screenPos, null, Color.White, rotationAngle,
-        origin, 1.0f, SpriteEffects.None, 0f);
+        origin, 0.45f, SpriteEffects.None, 0f);
+            
 
             spriteBatch.End();
             base.Draw(gameTime);
