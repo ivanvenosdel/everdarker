@@ -27,6 +27,11 @@ namespace EverDarker
         //Cubicle Wall
         WallSprite wall;
         List<List<WallSprite>> grid = new List<List<WallSprite>>();
+        int wallHeightPadding = 65;
+        bool noDown = false;
+        bool noUp = false;
+        bool noRight = false;
+        bool noLeft = false;
 
         //Character
         Character player;
@@ -139,39 +144,83 @@ namespace EverDarker
                         player.RotationAngle -= rotateSpeed;
                 }
                 //Movement
-                floor.UpdateY(moveSpeed);
+
                 for (int i = 0; i <= grid.Count - 1; i++)
                 {
                     for (int j = 0; j <= grid[i].Count - 1; j++)
                     {
-                        Rectangle wallRectangle = new Rectangle((int)grid[i][j].Position.X, (int)grid[i][j].Position.Y, grid[i][j].spriteTexture.Width, grid[i][j].spriteTexture.Height);
-                        if (!player.boundingBox.Intersects(wallRectangle))
+                        Rectangle wallRectangle = new Rectangle((int)grid[i][j].Position.X, 
+                            (int)grid[i][j].Position.Y, grid[i][j].spriteTexture.Width, 
+                            grid[i][j].spriteTexture.Height + wallHeightPadding);
+
+                        if (!player.boundingBox.Intersects(wallRectangle) || (noDown))
                         {
                             grid[i][j].Move(0, 3);
+                            floor.UpdateY(moveSpeed);
+
+                            if (!player.boundingBox.Intersects(wallRectangle))
+                            {
+                                noDown = false;
+                                noRight = false;
+                                noLeft = false;
+                            }
+                        }
+                        else
+                        {
+                            noUp = true;
                         }
                     }
                 }
             }
             if (newstate.IsKeyDown(Keys.Down))
             {
-                floor.UpdateY(-moveSpeed);
                 for (int i = 0; i <= grid.Count - 1; i++)
                 {
                     for (int j = 0; j <= grid[i].Count - 1; j++)
                     {
-                        grid[i][j].Move(0, -3);
+                        Rectangle wallRectangle = new Rectangle((int)grid[i][j].Position.X,
+                            (int)grid[i][j].Position.Y + 55, grid[i][j].spriteTexture.Width,
+                            grid[i][j].spriteTexture.Height);
+
+                        if (!player.boundingBox.Intersects(wallRectangle) || (noUp))
+                        {
+                            grid[i][j].Move(0, -3);
+                            floor.UpdateY(-moveSpeed);
+                            if (!player.boundingBox.Intersects(wallRectangle))
+                            {
+                                noUp = false;
+                                noRight = false;
+                                noLeft = false;
+                            }
+                        }
+                        else
+                        {
+                            noDown = true;
+                        }
                     }
                 }
             }
             if (newstate.IsKeyDown(Keys.Right))
             {
                 RotateX(newstate, .785f, 2.355f, 1.57f);
-                floor.UpdateX(-moveSpeed);
+
                 for (int i = 0; i <= grid.Count - 1; i++)
                 {
                     for (int j = 0; j <= grid[i].Count - 1; j++)
                     {
-                        grid[i][j].Move(-3, 0);
+                        Rectangle wallRectangle = new Rectangle((int)grid[i][j].Position.X,
+                           (int)grid[i][j].Position.Y, grid[i][j].spriteTexture.Width,
+                           grid[i][j].spriteTexture.Height + wallHeightPadding);
+
+                        if (!player.boundingBox.Intersects(wallRectangle) || (noLeft))
+                        {
+                            grid[i][j].Move(-3, 0);
+                            floor.UpdateX(-moveSpeed);
+                        }
+                        else
+                        {
+                            noRight = true;
+                        }
                     }
                 }
             }
