@@ -12,13 +12,14 @@ namespace EverDarker
         // class ScrollingBackground
         private Vector2 screenpos, origin, texturesize;
         private Texture2D mytexture;
-        private int screenheight;
+        private int screenheight, screenwidth;
+        public float RotationAngle = 0f;
 
         public void Load(GraphicsDevice device, Texture2D backgroundTexture)
         {
             mytexture = backgroundTexture;
             screenheight = device.Viewport.Height;
-            int screenwidth = device.Viewport.Width;
+            screenwidth = device.Viewport.Width;
             // Set the origin so that we're drawing from the 
             // center of the top edge.
             origin = new Vector2(mytexture.Width / 2, 0);
@@ -42,15 +43,15 @@ namespace EverDarker
         public void Draw(SpriteBatch batch)
         {
             // Draw the texture, if it is still onscreen.
-            if (screenpos.Y < screenheight)
+            if (screenpos.Y < screenheight  && screenpos.X < screenwidth)
             {
                 batch.Draw(mytexture, screenpos, null,
-                     Color.White, 0, origin, 1, SpriteEffects.None, 0f);
+                     Color.White, RotationAngle, origin, 1, SpriteEffects.None, 0f);
             }
             // Draw the texture a second time, behind the first,
             // to create the scrolling illusion.
             batch.Draw(mytexture, screenpos - texturesize, null,
-                 Color.White, 0, origin, 1, SpriteEffects.None, 0f);
+                 Color.White, RotationAngle, origin, 1, SpriteEffects.None, 0f);
         }
     }
 }
