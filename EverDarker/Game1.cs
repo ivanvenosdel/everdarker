@@ -83,7 +83,8 @@ namespace EverDarker
 
             //Player
             Viewport viewPort = graphics.GraphicsDevice.Viewport;
-            player.LoadContent(this.Content, "Character-1-Blue", viewPort);
+            player.Scale = 0.1f;
+            player.LoadContent(this.Content, "Character-2-Green", viewPort);
 
             //Cubicle Walls
             wall.LoadContent(this.Content);
