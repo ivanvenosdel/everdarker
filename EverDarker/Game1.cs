@@ -120,16 +120,13 @@ namespace EverDarker
             }
         }
 
-        void RotateY(KeyboardState newstate, float center)
-        {
-            
-        }
-
         void BasicMovement(GameTime gameTime)
         {
             KeyboardState newstate = Keyboard.GetState();
             Viewport viewport = graphics.GraphicsDevice.Viewport;
             float moveSpeed = 1;
+
+            player.walking = (newstate.IsKeyDown(Keys.Up) || newstate.IsKeyDown(Keys.Down) || newstate.IsKeyDown(Keys.Right) || newstate.IsKeyDown(Keys.Left));
 
             if (newstate.IsKeyDown(Keys.Up))
             {
@@ -145,6 +142,7 @@ namespace EverDarker
                 }
                 //Movement
 
+                
                 for (int i = 0; i <= grid.Count - 1; i++)
                 {
                     for (int j = 0; j <= grid[i].Count - 1; j++)
@@ -278,7 +276,10 @@ namespace EverDarker
 
             spriteBatch.Begin();
             floor.Draw(this.spriteBatch);
-            player.Draw(this.spriteBatch);
+            if (player.walking)
+                player.Walk(this.spriteBatch);
+            else
+                player.Draw(this.spriteBatch);
             /*
             spriteBatch.Draw(this.player.texture, screenPos, null, Color.White, rotationAngle,
         origin, 0.45f, SpriteEffects.None, 0f);
