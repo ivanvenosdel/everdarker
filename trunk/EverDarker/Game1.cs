@@ -26,6 +26,7 @@ namespace EverDarker
 
         //Cubicle Wall
         WallSprite wall;
+        List<List<WallSprite>> grid = new List<List<WallSprite>>();
 
         //Character
         Character player;
@@ -60,18 +61,11 @@ namespace EverDarker
             player = new Character();
             
             //Cubicle Wall
-            List<List<WallSprite>> grid = new List<List<WallSprite>>();
-            grid.Add(new List<WallSprite>());
-            grid[0].Add(wall);
-
+            wall = new WallSprite();
 
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
 
@@ -86,9 +80,15 @@ namespace EverDarker
             Viewport viewPort = graphics.GraphicsDevice.Viewport;
             player.LoadContent(this.Content, "Character-1-Blue", viewPort);
 
+            //Cubicle Walls
+            wall.LoadContent(this.Content);
 
-            // TODO: use this.Content to load your game content here
+            grid.Add(new List<WallSprite>());
+            grid[0].Add(wall);
+            grid[0][0].Position = new Vector2(5, 5);
         }
+
+        
 
         void BasicMovement(GameTime gameTime)
         {
@@ -99,22 +99,33 @@ namespace EverDarker
            
             if(newstate.IsKeyDown(Keys.Up))
             {
-                floor.UpdateY(elapsed * 100);                
+                floor.UpdateY(elapsed * 100);
+
+                for (int i = 0; i > grid.Capacity; i++)
+                {
+                    for (int j = 0; j > grid[i].Capacity; j++)
+                    {
+                        grid[i][j].Position.Y += 3;
+                    }
+                }
             }
 
             if (newstate.IsKeyDown(Keys.Down))
             {
-                floor.UpdateY(elapsed * -100);                
+                floor.UpdateY(elapsed * -100);
+                grid[0][0].Position.Y -= 5;
             }
 
             if (newstate.IsKeyDown(Keys.Right))
             {
                 floor.UpdateX(elapsed * -100);
+                grid[0][0].Position.X += 5;
             }
 
             if (newstate.IsKeyDown(Keys.Left))
             {
                 floor.UpdateX(elapsed * 100);
+                grid[0][0].Position.X -= 5;
             }
         }
 
@@ -163,7 +174,13 @@ namespace EverDarker
             */
 
             //drawing the cubes
-            wall.Draw(this.spriteBatch);
+            for (int i = 0; i > grid.Capacity; i++)
+            {
+                for (int j = 0; j > grid.Capacity; j++)
+                {
+                    grid[i][j].Draw(this.spriteBatch);
+                }
+            }
 
             spriteBatch.End();
             base.Draw(gameTime);
