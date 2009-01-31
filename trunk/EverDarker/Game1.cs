@@ -68,7 +68,7 @@ namespace EverDarker
 
         protected override void LoadContent()
         {
-
+            Random rand = new Random();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -85,9 +85,8 @@ namespace EverDarker
 
             grid.Add(new List<WallSprite>());
             grid[0].Add(wall);
+            grid[0][0].Position.X = rand.Next(viewPort.Width - grid[0][0].spriteTexture.Width);
         }
-
-        
 
         void BasicMovement(GameTime gameTime)
         {
