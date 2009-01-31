@@ -17,9 +17,9 @@ namespace EverDarker
         private Texture2D spriteTexture;
 
         //Load the texture for the sprite using the Content Pipeline
-        public void LoadContent(ContentManager theContentManager, string theAssetName)
+        public void LoadContent(ContentManager theContentManager)
         {
-            spriteTexture = theContentManager.Load<Texture2D>(theAssetName);
+            spriteTexture = theContentManager.Load<Texture2D>("Carpet");
         }
         
         //Draw the sprite to the screen 

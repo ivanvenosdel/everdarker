@@ -24,6 +24,9 @@ namespace EverDarker
         //Background
         ScrollingBackground floor;
 
+        //Cubicle Wall
+        WallSprite wall;
+
         //Character
         Character player;
 
@@ -56,6 +59,11 @@ namespace EverDarker
             //character
             player = new Character();
             
+            //Cubicle Wall
+            List<List<WallSprite>> grid = new List<List<WallSprite>>();
+            grid.Add(new List<WallSprite>());
+            grid[0].Add
+
 
             base.Initialize();
         }
@@ -66,6 +74,7 @@ namespace EverDarker
         /// </summary>
         protected override void LoadContent()
         {
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -77,9 +86,6 @@ namespace EverDarker
             Viewport viewPort = graphics.GraphicsDevice.Viewport;
             player.LoadContent(this.Content, "Character-1-Blue", viewPort);
 
-            //Floor tiles:
-            //List<List<Sprite>> grid = new List<List<Sprite>>();
-            //grid[0][1]
 
             // TODO: use this.Content to load your game content here
         }
@@ -155,6 +161,9 @@ namespace EverDarker
             spriteBatch.Draw(this.player.texture, screenPos, null, Color.White, rotationAngle,
         origin, 0.45f, SpriteEffects.None, 0f);
             */
+
+            //drawing the cubes
+            wall.Draw(this.spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);
