@@ -29,10 +29,6 @@ namespace EverDarker
 
         //Vectors
         Vector2 ZeroPosition;
-        Vector2 mainCharacterPosition;
-
-        //Random Variables
-        int characterSpeed;
 
         public Game1()
         {
@@ -52,8 +48,6 @@ namespace EverDarker
             //Initial starting points
             ZeroPosition.X = 0;
             ZeroPosition.Y = 0;
-
-            characterSpeed = 4;
 
             //floor
             floor = new Sprite();
@@ -85,8 +79,6 @@ namespace EverDarker
             //Floor tiles:
             //List<List<Sprite>> grid = new List<List<Sprite>>();
             //grid[0][1]
-            
-            //mainCharacterTexture = Content.Load<Texture2D>("MainCharacter");
 
             // TODO: use this.Content to load your game content here
         }
