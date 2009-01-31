@@ -21,8 +21,8 @@ namespace EverDarker
         {
             spriteTexture = theContentManager.Load<Texture2D>(theAssetName);
         }
-
-        //Draw the sprite to the screen
+        
+        //Draw the sprite to the screen 
         public void Draw(SpriteBatch theSpriteBatch)
         {
             theSpriteBatch.Draw(spriteTexture, Position, Color.White);
