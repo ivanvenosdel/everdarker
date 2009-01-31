@@ -21,11 +21,11 @@ namespace EverDarker
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D carpetTexture;
-        Character player = new Character();
-        private Vector2 origin;
-        private Vector2 screenPos;
-        private float rotationAngle = 0f;
+        //Background
+        Sprite floor;
+
+        //Character
+        Character player;
 
         //Vectors
         Vector2 ZeroPosition;
@@ -55,6 +55,9 @@ namespace EverDarker
 
             characterSpeed = 4;
 
+            floor = new Sprite();
+            player = new Character();
+
             base.Initialize();
         }
 
@@ -66,13 +69,14 @@ namespace EverDarker
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            carpetTexture = Content.Load<Texture2D>("Carpet");
-            this.player.texture = Content.Load<Texture2D>("Character-1-Blue");
-            Viewport viewport = graphics.GraphicsDevice.Viewport;
-            origin.X = this.player.texture.Width / 2;
-            origin.Y = this.player.texture.Height / 2;
-            screenPos.X = viewport.Width / 2;
-            screenPos.Y = viewport.Height / 2;
+
+            //Floor
+            floor.LoadContent(this.Content, "Carpet");
+            floor.Position = new Vector2(ZeroPosition.X, ZeroPosition.Y);
+
+            //Player
+            player.LoadContent(this.Content, "Character-1-Blue");
+            player.Position = new Vector2(ZeroPosition.X, ZeroPosition.Y);
             
             //mainCharacterTexture = Content.Load<Texture2D>("MainCharacter");
 
@@ -97,17 +101,17 @@ namespace EverDarker
             if (newstate.IsKeyDown(Keys.Right))
             {
                 float elapsed = .1f;
-                rotationAngle += elapsed;
+                //rotationAngle += elapsed;
                 float circle = MathHelper.Pi * 2;
-                rotationAngle = rotationAngle % circle;
+                //rotationAngle = rotationAngle % circle;
             }
 
             if (newstate.IsKeyDown(Keys.Left))
             {
                 float elapsed = -.1f;
-                rotationAngle += elapsed;
+                //rotationAngle += elapsed;
                 float circle = MathHelper.Pi * 2;
-                rotationAngle = rotationAngle % circle;
+                //rotationAngle = rotationAngle % circle;
             }
         }
 
@@ -136,7 +140,7 @@ namespace EverDarker
             // TODO: Add your update logic here
 
 
-            BasicMovement(gameTime);
+            //BasicMovement(gameTime);
 
             base.Update(gameTime);
         }
@@ -150,10 +154,12 @@ namespace EverDarker
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(carpetTexture,ZeroPosition, Color.White);
+            floor.Draw(this.spriteBatch);
+            player.Draw(this.spriteBatch);
+            /*
             spriteBatch.Draw(this.player.texture, screenPos, null, Color.White, rotationAngle,
         origin, 0.45f, SpriteEffects.None, 0f);
-            
+            */
 
             spriteBatch.End();
             base.Draw(gameTime);
