@@ -21,7 +21,7 @@ namespace EverDarker
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D carpetTexture;
+        private Texture2D carpetTexture;
         Texture2D mainCharacterTexture;
         Character player = new Character();        
 
@@ -60,6 +60,8 @@ namespace EverDarker
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
+        /// 
+        private ScrollingBackground myBackground;
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
