@@ -13,15 +13,11 @@ namespace EverDarker
         {
             this.xPosition = 50;
             this.yPosition = 50;
-            this.textures = new Dictionary<Orientations, string>();
-            this.textures[Orientations.up] = "characterup.png";
-            this.textures[Orientations.left] = "characterleft.png";
-            this.textures[Orientations.right] = "characterright.png";
-            this.textures[Orientations.down] = "characterdown.png";
+            this.textures = new Dictionary<Orientations, Texture2D>();
         }
         public int xPosition { get; set; }
         public int yPosition { get; set; }
-        public Dictionary<Orientations, string> textures { get; set; }
+        public Dictionary<Orientations, Texture2D> textures { get; set; }
     }
 }
 enum Orientations
