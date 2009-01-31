@@ -94,9 +94,43 @@ namespace EverDarker
             Viewport viewport = graphics.GraphicsDevice.Viewport;
             // The time since Update was called last.
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (newstate.IsKeyDown(Keys.Up))
+            {
+                if (player.RotationAngle < 0)
+                    player.RotationAngle += elapsed;
+                else if (player.RotationAngle > 0)
+                    player.RotationAngle -= elapsed;
+                floor.UpdateY(elapsed * 100);
+            }
+            if (newstate.IsKeyDown(Keys.Down))
+            {
+                if (player.RotationAngle < 0)
+                    player.RotationAngle -= elapsed;
+                else if (player.RotationAngle > 0)
+                    player.RotationAngle += elapsed;
+                floor.UpdateY(elapsed * -100);
+            }
+            if (newstate.IsKeyDown(Keys.Right))
+            {
+                floor.UpdateX(elapsed * -100);
+            }
+            if (newstate.IsKeyDown(Keys.Left))
+            {
+                floor.UpdateX(elapsed * 100);
+            }
            
+            /*
             if(newstate.IsKeyDown(Keys.Up))
             {
+                if (newstate.IsKeyUp(Keys.Right) && newstate.IsKeyUp(Keys.Left))
+                {
+                    if (player.RotationAngle < 0)
+                        player.RotationAngle += elapsed;
+                    else if (player.RotationAngle > 0)
+                        player.RotationAngle -= elapsed;
+                }
+                floor.UpdateY(elapsed * 100);                
                 floor.UpdateY(elapsed * 100);
 
                 for (int i = 0; i <= grid.Count-1; i++)
@@ -110,21 +144,66 @@ namespace EverDarker
 
             if (newstate.IsKeyDown(Keys.Down))
             {
+                if (newstate.IsKeyUp(Keys.Right) && newstate.IsKeyUp(Keys.Left))
+                {
+                    if (player.RotationAngle < .314)
+                        player.RotationAngle += elapsed;
+                    else if (player.RotationAngle > .314)
+                        player.RotationAngle -= elapsed;
+                }
+                floor.UpdateY(elapsed * -100);                
                 floor.UpdateY(elapsed * -100);
                 grid[0][0].Position.Y -= 5;
             }
 
             if (newstate.IsKeyDown(Keys.Right))
             {
+                //Rotation
+                if (newstate.IsKeyUp(Keys.Down) && newstate.IsKeyDown(Keys.Up))
+                {
+                    if (player.RotationAngle < .785)
+                        player.RotationAngle += elapsed;
+                }
+                else if (newstate.IsKeyUp(Keys.Up) && newstate.IsKeyDown(Keys.Down))
+                {
+                    if (player.RotationAngle < 2.355)
+                        player.RotationAngle += elapsed;
+                }
+                else if (newstate.IsKeyUp(Keys.Up) && newstate.IsKeyUp(Keys.Down))
+                {
+                    if (player.RotationAngle < 1.57)
+                        player.RotationAngle += elapsed;
+                }
+
                 floor.UpdateX(elapsed * -100);
                 grid[0][0].Position.X += 5;
             }
 
             if (newstate.IsKeyDown(Keys.Left))
             {
+                //Rotation
+                if (newstate.IsKeyUp(Keys.Down) && newstate.IsKeyDown(Keys.Up))
+                {
+                    if (player.RotationAngle > -.785)
+                        player.RotationAngle -= elapsed;
+                }
+                else if (newstate.IsKeyUp(Keys.Up) && newstate.IsKeyDown(Keys.Down))
+                {
+                    if (player.RotationAngle > -2.355)
+                        player.RotationAngle -= elapsed;
+                }
+                else if (newstate.IsKeyUp(Keys.Up) && newstate.IsKeyUp(Keys.Down))
+                {
+                    if (player.RotationAngle > -1.57)
+                        player.RotationAngle -= elapsed;
+                }
+                
                 floor.UpdateX(elapsed * 100);
                 grid[0][0].Position.X -= 5;
             }
+             */
+            float circle = MathHelper.Pi * 2;
+            player.RotationAngle = player.RotationAngle % circle;
         }
 
         /// <summary>

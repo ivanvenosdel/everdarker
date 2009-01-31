@@ -14,13 +14,13 @@ namespace EverDarker
         //The current position of the Sprite
         public Vector2 Position = new Vector2(0, 0);
         //The texture object used when drawing the sprite
-        private Texture2D spriteTexture;
+        public Texture2D spriteTexture;
         //The size of the Sprite
         public Rectangle Size;
         //Used to size the Sprite up or down from the original image
         public float Scale = 1.0f;
         //For the center of the sprite
-        private Vector2 origin;
+        public Vector2 origin;
         
         #endregion Members
 
