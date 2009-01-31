@@ -36,10 +36,6 @@ namespace EverDarker
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            this.player.xposition = 50;
-            this.player.yposition = 50;
-            this.player.orientation = Orientations.up;
         }
 
         /// <summary>
