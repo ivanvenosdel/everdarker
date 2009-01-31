@@ -66,6 +66,7 @@ namespace EverDarker
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            myBackground = new ScrollingBackground(); 
             carpetTexture = Content.Load<Texture2D>("Carpet");
             //mainCharacterTexture = Content.Load<Texture2D>("MainCharacter");
 
