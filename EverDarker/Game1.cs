@@ -35,6 +35,9 @@ namespace EverDarker
         Vector2 ZeroPosition;
         Vector2 mainCharacterPosition;
 
+        //Random Variables
+        int characterSpeed;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -54,6 +57,8 @@ namespace EverDarker
             ZeroPosition.X = 0;
             ZeroPosition.Y = 0;
 
+            characterSpeed = 4;
+
             base.Initialize();
         }
 
@@ -69,6 +74,17 @@ namespace EverDarker
             //mainCharacterTexture = Content.Load<Texture2D>("MainCharacter");
 
             // TODO: use this.Content to load your game content here
+        }
+
+        void BasicMovement()
+        {
+            KeyboardState newstate = Keyboard.GetState();
+
+            if(newstate.IsKeyDown(Keys.Up)
+            {
+                mainCharacterPosition.X += characterSpeed;
+            }
+
         }
 
         /// <summary>
@@ -92,6 +108,8 @@ namespace EverDarker
                 this.Exit();
 
             // TODO: Add your update logic here
+
+            
 
             base.Update(gameTime);
         }
