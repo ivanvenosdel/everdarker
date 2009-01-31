@@ -85,7 +85,6 @@ namespace EverDarker
 
             grid.Add(new List<WallSprite>());
             grid[0].Add(wall);
-            grid[0][0].Position = new Vector2(5, 5);
         }
 
         
@@ -101,9 +100,9 @@ namespace EverDarker
             {
                 floor.UpdateY(elapsed * 100);
 
-                for (int i = 0; i > grid.Capacity; i++)
+                for (int i = 0; i <= grid.Count-1; i++)
                 {
-                    for (int j = 0; j > grid[i].Capacity; j++)
+                    for (int j = 0; j <= grid[i].Count-1; j++)
                     {
                         grid[i][j].Position.Y += 3;
                     }
@@ -174,9 +173,9 @@ namespace EverDarker
             */
 
             //drawing the cubes
-            for (int i = 0; i > grid.Capacity; i++)
+            for (int i = 0; i <= grid.Count-1; i++)
             {
-                for (int j = 0; j > grid.Capacity; j++)
+                for (int j = 0; j <= grid[i].Count-1; j++)
                 {
                     grid[i][j].Draw(this.spriteBatch);
                 }
