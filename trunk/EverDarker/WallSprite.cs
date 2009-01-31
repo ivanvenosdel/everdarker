@@ -23,6 +23,7 @@ namespace EverDarker
         public void LoadContent(ContentManager theContentManager)
         {
             spriteTexture = theContentManager.Load<Texture2D>("Cubicle-TwoSided");
+            boundingBox = new Rectangle((int)Position.X, (int)Position.Y, spriteTexture.Width, spriteTexture.Height);
         }
         
         //Draw the sprite to the screen 
@@ -36,10 +37,6 @@ namespace EverDarker
         {
             Position.X += horz;
             Position.Y += vert;
-
-            boundingBox.X = (int)Position.X;
-            boundingBox.Y = (int)Position.Y;
-
         }
     }
 }
