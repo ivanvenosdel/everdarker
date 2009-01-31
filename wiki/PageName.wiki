@@ -4,3 +4,6 @@
  * Character movement
  * Cubical walls
  * Cubical wall clipping
+
+= Links =
+http://en.wikipedia.org/wiki/Top-down_perspective
