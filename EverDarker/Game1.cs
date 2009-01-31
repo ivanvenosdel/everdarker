@@ -69,8 +69,8 @@ namespace EverDarker
             carpetTexture = Content.Load<Texture2D>("Carpet");
             this.player.textures[Orientations.up] = Content.Load<Texture2D>("Character-1-Blue");
 
-            mainCharacterPosition.X = display.ClientBounds.Width / 2;
-            mainCharacterPosition.Y = display.ClientBounds.Height / 2;
+            //mainCharacterPosition.X = display.ClientBounds.Width / 2;
+            //mainCharacterPosition.Y = display.ClientBounds.Height / 2;
 
             //mainCharacterTexture = Content.Load<Texture2D>("MainCharacter");
 
