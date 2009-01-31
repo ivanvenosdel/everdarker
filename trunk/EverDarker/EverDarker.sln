@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C# Express 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EverDarker", "EverDarker.csproj", "{4B17EB1E-4243-4D77-86E7-72CFF6CA781D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4B17EB1E-4243-4D77-86E7-72CFF6CA781D}.Debug|x86.ActiveCfg = Debug|x86
+		{4B17EB1E-4243-4D77-86E7-72CFF6CA781D}.Debug|x86.Build.0 = Debug|x86
+		{4B17EB1E-4243-4D77-86E7-72CFF6CA781D}.Release|x86.ActiveCfg = Release|x86
+		{4B17EB1E-4243-4D77-86E7-72CFF6CA781D}.Release|x86.Build.0 = Release|x86
+		{A699E4DD-8B12-4158-B59B-6827BF74014B}.Debug|x86.ActiveCfg = Debug|x86
+		{A699E4DD-8B12-4158-B59B-6827BF74014B}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
