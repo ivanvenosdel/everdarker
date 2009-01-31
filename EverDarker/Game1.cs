@@ -20,10 +20,12 @@ namespace EverDarker
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        GameWindow display;
 
         Texture2D carpetTexture;
-        Character player = new Character();        
+        Character player = new Character();
+        private Vector2 origin;
+        private Vector2 screenPos;
+        private float rotationAngle = 0f;
 
         //Vectors
         Vector2 ZeroPosition;
@@ -44,12 +46,6 @@ namespace EverDarker
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
-
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
-        /// 
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -62,16 +58,22 @@ namespace EverDarker
             base.Initialize();
         }
 
+        /// <summary>
+        /// LoadContent will be called once per game and is the place to load
+        /// all of your content.
+        /// </summary>
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             carpetTexture = Content.Load<Texture2D>("Carpet");
-            this.player.textures[Orientations.up] = Content.Load<Texture2D>("Character-1-Blue");
-
-            //mainCharacterPosition.X = display.ClientBounds.Width / 2;
-            //mainCharacterPosition.Y = display.ClientBounds.Height / 2;
-
+            this.player.texture = Content.Load<Texture2D>("Character-1-Blue");
+            Viewport viewport = graphics.GraphicsDevice.Viewport;
+            origin.X = this.player.texture.Width / 2;
+            origin.Y = this.player.texture.Height / 2;
+            screenPos.X = viewport.Width / 2;
+            screenPos.Y = viewport.Height / 2;
+            
             //mainCharacterTexture = Content.Load<Texture2D>("MainCharacter");
 
             // TODO: use this.Content to load your game content here
@@ -108,8 +110,14 @@ namespace EverDarker
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            // The time since Update was called last.
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             // TODO: Add your update logic here
-            BasicMovement();
+            rotationAngle += elapsed;
+            float circle = MathHelper.Pi * 2;
+            rotationAngle = rotationAngle % circle;
+            
 
             base.Update(gameTime);
         }
@@ -124,7 +132,8 @@ namespace EverDarker
 
             spriteBatch.Begin();
             spriteBatch.Draw(carpetTexture,ZeroPosition, Color.White);
-            spriteBatch.Draw(this.player.textures[Orientations.up], mainCharacterPosition, Color.White);
+            spriteBatch.Draw(this.player.texture, screenPos, null, Color.White, rotationAngle,
+        origin, 1.0f, SpriteEffects.None, 0f);
 
             spriteBatch.End();
             base.Draw(gameTime);

@@ -13,17 +13,9 @@ namespace EverDarker
         {
             this.xPosition = 50;
             this.yPosition = 50;
-            this.textures = new Dictionary<Orientations, Texture2D>();
         }
         public int xPosition { get; set; }
         public int yPosition { get; set; }
-        public Dictionary<Orientations, Texture2D> textures { get; set; }
+        public Texture2D texture { get; set; }
     }
-}
-enum Orientations
-{
-    up,
-    down,
-    left,
-    right
 }
