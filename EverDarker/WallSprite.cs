@@ -29,6 +29,7 @@ namespace EverDarker
         public void Draw(SpriteBatch theSpriteBatch)
         {
             theSpriteBatch.Draw(spriteTexture, Position, Color.White);
+            //theSpriteBatch.Draw(spriteTexture, Position, null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
         }
 
         public void Move(int horz, int vert)
