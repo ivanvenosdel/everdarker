@@ -85,7 +85,22 @@ namespace EverDarker
 
             if(newstate.IsKeyDown(Keys.Up))
             {
-                mainCharacterPosition.X += characterSpeed;
+                screenPos.Y -= characterSpeed;
+            }
+
+            if (newstate.IsKeyDown(Keys.Down))
+            {
+                screenPos.Y += characterSpeed;
+            }
+
+            if (newstate.IsKeyDown(Keys.Right))
+            {
+                screenPos.X += characterSpeed;
+            }
+
+            if (newstate.IsKeyDown(Keys.Left))
+            {
+                screenPos.X -= characterSpeed;
             }
 
         }
@@ -117,7 +132,8 @@ namespace EverDarker
             rotationAngle += elapsed;
             float circle = MathHelper.Pi * 2;
             rotationAngle = rotationAngle % circle;
-            
+
+            BasicMovement();
 
             base.Update(gameTime);
         }
