@@ -62,7 +62,7 @@ namespace EverDarker
             //Cubicle Wall
             List<List<WallSprite>> grid = new List<List<WallSprite>>();
             grid.Add(new List<WallSprite>());
-            grid[0].Add
+            grid[0].Add(wall);
 
 
             base.Initialize();
