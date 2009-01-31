@@ -91,7 +91,6 @@
     <Compile Include="ScrollingBackground.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Character-1-Blue.png" />
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
