@@ -55,8 +55,12 @@ namespace EverDarker
 
             characterSpeed = 4;
 
+            //floor
             floor = new Sprite();
+            floor.Scale = .5f;
+            //character
             player = new Character();
+            
 
             base.Initialize();
         }
@@ -75,8 +79,12 @@ namespace EverDarker
             floor.Position = new Vector2(ZeroPosition.X, ZeroPosition.Y);
 
             //Player
-            player.LoadContent(this.Content, "Character-1-Blue");
-            player.Position = new Vector2(ZeroPosition.X, ZeroPosition.Y);
+            Viewport viewPort = graphics.GraphicsDevice.Viewport;
+            player.LoadContent(this.Content, "Character-1-Blue", viewPort);
+
+            //Floor tiles:
+            //List<List<Sprite>> grid = new List<List<Sprite>>();
+            //grid[0][1]
             
             //mainCharacterTexture = Content.Load<Texture2D>("MainCharacter");
 
@@ -139,6 +147,13 @@ namespace EverDarker
 
             // TODO: Add your update logic here
 
+            if (floor.Position.X < -floor.Size.Width)
+            {
+                floor.Position.X = floor.Position.X + floor.Size.Width;
+            }
+            Vector2 aDirection = new Vector2(-1, 0);
+            Vector2 aSpeed = new Vector2(160, 0);
+            floor.Position += aDirection * aSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             //BasicMovement(gameTime);
 
