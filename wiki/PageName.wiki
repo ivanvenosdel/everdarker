@@ -1,0 +1,6 @@
+= Goals =
+ * Base floor texture
+ * Character
+ * Character movement
+ * Cubical walls
+ * Cubical wall clipping
