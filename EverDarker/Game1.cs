@@ -21,6 +21,13 @@ namespace EverDarker
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Texture2D carpetTexture;
+        Texture2D mainCharacterTexture;
+
+        //Vectors
+        Vector2 ZeroPosition;
+        Vector2 mainCharacterPosition;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -36,6 +43,9 @@ namespace EverDarker
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            //Initial starting points
+            ZeroPosition.X = 0;
+            ZeroPosition.Y = 0;
 
             base.Initialize();
         }
@@ -48,6 +58,8 @@ namespace EverDarker
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            carpetTexture = Content.Load<Texture2D>("Carpet");
+            //mainCharacterTexture = Content.Load<Texture2D>("MainCharacter");
 
             // TODO: use this.Content to load your game content here
         }
@@ -85,8 +97,11 @@ namespace EverDarker
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            spriteBatch.Begin();
+            spriteBatch.Draw(carpetTexture,ZeroPosition, Color.White);
             // TODO: Add your drawing code here
 
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
