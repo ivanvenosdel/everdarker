@@ -20,6 +20,7 @@ namespace EverDarker
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        GameWindow display;
 
         Texture2D carpetTexture;
         Character player = new Character();        
@@ -43,6 +44,12 @@ namespace EverDarker
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
+
+        /// <summary>
+        /// LoadContent will be called once per game and is the place to load
+        /// all of your content.
+        /// </summary>
+        /// 
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -55,18 +62,16 @@ namespace EverDarker
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             carpetTexture = Content.Load<Texture2D>("Carpet");
             this.player.textures[Orientations.up] = Content.Load<Texture2D>("Character-1-Blue");
-            
-            
+
+            mainCharacterPosition.X = display.ClientBounds.Width / 2;
+            mainCharacterPosition.Y = display.ClientBounds.Height / 2;
+
             //mainCharacterTexture = Content.Load<Texture2D>("MainCharacter");
 
             // TODO: use this.Content to load your game content here
@@ -104,8 +109,7 @@ namespace EverDarker
                 this.Exit();
 
             // TODO: Add your update logic here
-
-            
+            BasicMovement();
 
             base.Update(gameTime);
         }
@@ -120,7 +124,7 @@ namespace EverDarker
 
             spriteBatch.Begin();
             spriteBatch.Draw(carpetTexture,ZeroPosition, Color.White);
-            spriteBatch.Draw(this.player.textures[Orientations.up], ZeroPosition, Color.White);
+            spriteBatch.Draw(this.player.textures[Orientations.up], mainCharacterPosition, Color.White);
 
             spriteBatch.End();
             base.Draw(gameTime);
