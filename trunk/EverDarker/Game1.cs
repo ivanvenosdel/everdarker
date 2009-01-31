@@ -18,12 +18,6 @@ namespace EverDarker
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        public Game1()
-        {
-            this.player.xposition = 50;
-            this.player.yposition = 50;
-            this.player.orientation = Orientations.up;
-        }
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -42,6 +36,10 @@ namespace EverDarker
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            this.player.xposition = 50;
+            this.player.yposition = 50;
+            this.player.orientation = Orientations.up;
         }
 
         /// <summary>
@@ -80,7 +78,7 @@ namespace EverDarker
         {
             KeyboardState newstate = Keyboard.GetState();
 
-            if(newstate.IsKeyDown(Keys.Up)
+            if(newstate.IsKeyDown(Keys.Up))
             {
                 mainCharacterPosition.X += characterSpeed;
             }
