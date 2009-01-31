@@ -64,7 +64,7 @@ namespace EverDarker
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             carpetTexture = Content.Load<Texture2D>("Carpet");
-            //this.player.textures[Orientations.up] = Content.Load<Texture2D>("Character-1-Blue");
+            this.player.textures[Orientations.up] = Content.Load<Texture2D>("Character-1-Blue");
             
             
             //mainCharacterTexture = Content.Load<Texture2D>("MainCharacter");
@@ -120,6 +120,7 @@ namespace EverDarker
 
             spriteBatch.Begin();
             spriteBatch.Draw(carpetTexture,ZeroPosition, Color.White);
+            spriteBatch.Draw(this.player.textures[Orientations.up], ZeroPosition, Color.White);
 
             spriteBatch.End();
             base.Draw(gameTime);
