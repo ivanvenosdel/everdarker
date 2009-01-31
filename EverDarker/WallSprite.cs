@@ -17,7 +17,7 @@ namespace EverDarker
         public Rectangle boundingBox;
 
         //The texture object used when drawing the sprite
-        private Texture2D spriteTexture;
+        public Texture2D spriteTexture;
 
         //Load the texture for the sprite using the Content Pipeline
         public void LoadContent(ContentManager theContentManager)
