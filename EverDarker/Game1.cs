@@ -18,11 +18,18 @@ namespace EverDarker
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        public Game1()
+        {
+            this.player.xposition = 50;
+            this.player.yposition = 50;
+            this.player.orientation = Orientations.up;
+        }
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         Texture2D carpetTexture;
         Texture2D mainCharacterTexture;
+        Character player = new Character();        
 
         //Vectors
         Vector2 ZeroPosition;
@@ -99,7 +106,6 @@ namespace EverDarker
 
             spriteBatch.Begin();
             spriteBatch.Draw(carpetTexture,ZeroPosition, Color.White);
-            // TODO: Add your drawing code here
 
             spriteBatch.End();
             base.Draw(gameTime);
