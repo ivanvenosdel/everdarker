@@ -13,6 +13,7 @@ namespace EverDarker
         private Vector2 screenpos, origin, texturesize;
         private Texture2D mytexture;
         private int screenheight;
+
         public void Load(GraphicsDevice device, Texture2D backgroundTexture)
         {
             mytexture = backgroundTexture;
@@ -27,7 +28,12 @@ namespace EverDarker
             texturesize = new Vector2(0, mytexture.Height);
         }
         // ScrollingBackground.Update
-        public void Update(float deltaY)
+        public void UpdateX(float deltaX)
+        {
+            screenpos.X += deltaX;
+            screenpos.X = screenpos.X % mytexture.Width;
+        }
+        public void UpdateY(float deltaY)
         {
             screenpos.Y += deltaY;
             screenpos.Y = screenpos.Y % mytexture.Height;
