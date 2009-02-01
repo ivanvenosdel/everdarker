@@ -4,7 +4,7 @@
  * ~~Character movement~~
  * ~~Cubical walls~~
  * Darkness Overlay
- * Cubical wall clipping
+ * ~~Cubical wall clipping~~
 
 = Links =
 http://en.wikipedia.org/wiki/Top-down_perspective
