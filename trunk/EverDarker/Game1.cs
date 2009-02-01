@@ -359,13 +359,13 @@ namespace EverDarker
             spriteBatch.Draw(shadows[shadowFrame], shadowSprite.Position, Color.White);
             spriteBatch.End();
             
-            if (gameTime.TotalGameTime.TotalSeconds < 60)
+            if (gameTime.TotalGameTime.TotalSeconds < 18)
             {
                 spriteBatch.Begin();
                 spriteBatch.Draw(gif.GetTexture(), new Rectangle(0, 0, graphics.PreferredBackBufferWidth , graphics.PreferredBackBufferHeight), Color.White);
                 spriteBatch.End();
 
-                gif.Update(10000);
+                gif.Update(30000);
             }
             
             base.Draw(gameTime);
