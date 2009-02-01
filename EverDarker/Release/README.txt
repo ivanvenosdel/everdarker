@@ -3,7 +3,6 @@ To properly play EverDarker follow these basic instructions:
 1.  Extract all files
 2.  Run Everdarker.exe
 
-
 Easy as that!  Enjoy!
 
 -----------------------------------------------------------------------------------------------

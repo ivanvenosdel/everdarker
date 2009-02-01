@@ -1,0 +1,5 @@
+Bugs
+
+shadow background moves even if the play is collided with wall
+Gif animation moves to fast and still need to figure out how to stop it after running once
+Controls need to be tuned
