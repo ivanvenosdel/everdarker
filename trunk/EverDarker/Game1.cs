@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using XNAGifAnimationLibrary;
 
 namespace EverDarker
 {
@@ -20,6 +21,9 @@ namespace EverDarker
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        //gif animation
+        GifAnimation gif = null;
 
         //Audio Objects
         bool walkSound;
@@ -93,6 +97,9 @@ namespace EverDarker
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            //gif animation
+            gif = Content.Load<GifAnimation>("IntroToGame-Everdarker");
 
             //Floor
             floor.LoadContent(Content, "Carpet");
@@ -268,6 +275,12 @@ namespace EverDarker
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            //spriteBatch.Begin();
+            //spriteBatch.Draw(gif.GetTexture(), new Rectangle(0, 0, 800, 600), Color.White);
+            //spriteBatch.End();
+
+            //gif.Update(gameTime.ElapsedGameTime.Ticks/10);
+
             spriteBatch.Begin();
             floor.Draw(this.spriteBatch);
             DateTime walkNow = DateTime.Now;
@@ -282,12 +295,12 @@ namespace EverDarker
                 }
                 else
                 {
-                    if(walkNow.Ticks > (lastWalk.Ticks + 5000000))
+                    if (walkNow.Ticks > (lastWalk.Ticks + 5000000))
                     {
                         walkSound = false;
                     }
                 }
-    
+
             }
             else
                 player.Draw(this.spriteBatch);
