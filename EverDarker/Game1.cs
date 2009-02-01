@@ -358,16 +358,16 @@ namespace EverDarker
             }
             spriteBatch.Draw(shadows[shadowFrame], shadowSprite.Position, Color.White);
             spriteBatch.End();
-            /*
-            //if (gameTime.TotalGameTime.TotalSeconds < 11)
-            //{
-            //    spriteBatch.Begin();
-            //    spriteBatch.Draw(gif.GetTexture(), new Rectangle(0, 0, graphics.PreferredBackBufferWidth , graphics.PreferredBackBufferHeight), Color.White);
-            //    spriteBatch.End();
+            
+            if (gameTime.TotalGameTime.TotalSeconds < 60)
+            {
+                spriteBatch.Begin();
+                spriteBatch.Draw(gif.GetTexture(), new Rectangle(0, 0, graphics.PreferredBackBufferWidth , graphics.PreferredBackBufferHeight), Color.White);
+                spriteBatch.End();
 
-            //    gif.Update(gameTime.ElapsedGameTime.Ticks);
-            //}
-            */
+                gif.Update(10000);
+            }
+            
             base.Draw(gameTime);
         }
     }
