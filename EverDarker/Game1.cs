@@ -24,7 +24,6 @@ namespace EverDarker
 
         //gif animation
         GifAnimation gif = null;
-        bool IntroComplete = false;
 
         //Audio Objects
         SoundEffect bgMusic;
@@ -300,7 +299,7 @@ namespace EverDarker
             GraphicsDevice.Clear(Color.CornflowerBlue);
             if (!mainSoundOn)
             {
-                bgMusic.Play();
+                bgMusic.Play(.8f);
                 mainSoundOn = true;
             }
 
@@ -361,7 +360,7 @@ namespace EverDarker
                 spriteBatch.Draw(gif.GetTexture(), new Rectangle(0, 0, 1024, 768), Color.White);
                 spriteBatch.End();
 
-                gif.Update(50000);
+                gif.Update(gameTime.ElapsedGameTime.Ticks);
             }
 
             base.Draw(gameTime);
