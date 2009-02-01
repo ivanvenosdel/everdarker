@@ -3,6 +3,7 @@
  * ~~Character~~
  * ~~Character movement~~
  * Cubical walls
+ * Darkness Overlay
  * Cubical wall clipping
 
 = Links =
