@@ -142,7 +142,6 @@ namespace EverDarker
                         player.RotationAngle -= rotateSpeed;
                 }
                 //Movement
-
                 
                 for (int i = 0; i <= grid.Count - 1; i++)
                 {
