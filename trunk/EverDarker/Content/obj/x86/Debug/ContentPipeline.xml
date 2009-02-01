@@ -53,7 +53,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\EverDarker\EverDarker\bin\x86\Debug\Content\Character-2-Green.xnb</Output>
-      <Time>2009-01-31T16:40:51.625-06:00</Time>
+      <Time>2009-01-31T23:52:26.5-06:00</Time>
     </Item>
     <Item>
       <Source>Character-2-LeftFoot.PNG</Source>
@@ -62,7 +62,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\EverDarker\EverDarker\bin\x86\Debug\Content\Character-2-LeftFoot.xnb</Output>
-      <Time>2009-01-31T16:40:51.5-06:00</Time>
+      <Time>2009-01-31T23:52:26.5-06:00</Time>
     </Item>
     <Item>
       <Source>Character-2-RightFoot.PNG</Source>
@@ -71,7 +71,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\EverDarker\EverDarker\bin\x86\Debug\Content\Character-2-RightFoot.xnb</Output>
-      <Time>2009-01-31T16:40:51.46875-06:00</Time>
+      <Time>2009-01-31T23:52:26.484375-06:00</Time>
     </Item>
     <Item>
       <Source>background-1.png</Source>
