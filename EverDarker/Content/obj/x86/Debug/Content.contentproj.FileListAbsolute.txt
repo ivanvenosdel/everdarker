@@ -1,2 +1,0 @@
-C:\EverDarker\EverDarker\Content\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\EverDarker\EverDarker\Content\obj\x86\Debug\Sound Bank.xml
