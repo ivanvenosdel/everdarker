@@ -22,7 +22,6 @@ namespace EverDarker
         SpriteBatch spriteBatch;
 
         //Audio Objects
-        SoundEffect soundEffect;
         bool walkSound;
         DateTime lastWalk;
 
@@ -135,9 +134,6 @@ namespace EverDarker
             shadows.Add(shadow12);
 
             shadowRectangle = new Rectangle((int)0, (int)0, viewPort.Width, viewPort.Height);
-
-            //Audio
-            soundEffect = Content.Load<SoundEffect>("myfootstep");
         }
 
         void RotateX(KeyboardState newstate, float upMax, float downMax, float xMax)
@@ -283,7 +279,6 @@ namespace EverDarker
 
                 if (walkSound == false)
                 {
-                    soundEffect.Play();
                     walkSound = true;
                     lastWalk = walkNow;
                 }
