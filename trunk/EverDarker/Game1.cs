@@ -77,7 +77,7 @@ namespace EverDarker
             ZeroPosition.Y = 0;
 
             //floor
-            floor = new ScrollingBackground();
+            floor = new Sprite();
             //floor = new Sprite();
             //floor.Scale = .5f;
             //character
