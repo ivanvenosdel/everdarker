@@ -53,21 +53,11 @@ namespace EverDarker
         Texture2D shadow8;
         Texture2D shadow9;
         Texture2D shadow10;
-        Texture2D shadow11;
-        Texture2D shadow12;
-        Texture2D shadow13;
-        Texture2D shadow14;
-        Texture2D shadow15;
-        Texture2D shadow16;
-        Texture2D shadow17;
-        Texture2D shadow18;
-        Texture2D shadow19;
-        Texture2D shadow20;
-        Rectangle shadowRectangle;
+        Sprite shadowSprite;
         DateTime LastShadow;
         int shadowFrame = 0;
-        uint levelLength = 3000000000;
-        int numOfFrames = 20;
+        uint levelLength = 1500000000;
+        int numOfFrames = 10;
 
         //Vectors
         Vector2 ZeroPosition;
@@ -98,6 +88,8 @@ namespace EverDarker
             floor = new Sprite();
             //character
             player = new Character();
+            //Shadow
+            shadowSprite = new Sprite();
             
             base.Initialize();
         }
@@ -140,26 +132,16 @@ namespace EverDarker
                 this.grid.Add(row);
             }
             //Shadow Images
-            shadow1 = Content.Load<Texture2D>("light-20");
-            shadow2 = Content.Load<Texture2D>("light-19"); 
-            shadow3 = Content.Load<Texture2D>("light-18"); 
-            shadow4 = Content.Load<Texture2D>("light-17"); 
-            shadow5 = Content.Load<Texture2D>("light-16"); 
-            shadow6 = Content.Load<Texture2D>("light-15"); 
-            shadow7 = Content.Load<Texture2D>("light-14"); 
-            shadow8 = Content.Load<Texture2D>("light-13"); 
-            shadow9 = Content.Load<Texture2D>("light-12"); 
-            shadow10 = Content.Load<Texture2D>("light-11"); 
-            shadow11 = Content.Load<Texture2D>("light-10"); 
-            shadow12 = Content.Load<Texture2D>("light-9");
-            shadow13 = Content.Load<Texture2D>("light-8");
-            shadow14 = Content.Load<Texture2D>("light-7");
-            shadow15 = Content.Load<Texture2D>("light-6");
-            shadow16 = Content.Load<Texture2D>("light-5");
-            shadow17 = Content.Load<Texture2D>("light-4");
-            shadow18 = Content.Load<Texture2D>("light-3");
-            shadow19 = Content.Load<Texture2D>("light-2");
-            shadow20 = Content.Load<Texture2D>("light-1"); 
+            shadow1 = Content.Load<Texture2D>("background-1");
+            shadow2 = Content.Load<Texture2D>("background-2");
+            shadow3 = Content.Load<Texture2D>("background-3");
+            shadow4 = Content.Load<Texture2D>("background-4");
+            shadow5 = Content.Load<Texture2D>("background-5");
+            shadow6 = Content.Load<Texture2D>("background-6");
+            shadow7 = Content.Load<Texture2D>("background-7");
+            shadow8 = Content.Load<Texture2D>("background-8");
+            shadow9 = Content.Load<Texture2D>("background-9");
+            shadow10 = Content.Load<Texture2D>("background-10");
             shadows.Add(shadow1);
             shadows.Add(shadow2);
             shadows.Add(shadow3);
@@ -170,10 +152,9 @@ namespace EverDarker
             shadows.Add(shadow8);
             shadows.Add(shadow9);
             shadows.Add(shadow10);
-            shadows.Add(shadow11);
-            shadows.Add(shadow12);
 
-            //shadowRectangle = new Rectangle((int)0, (int)0, viewPort.Width, viewPort.Height);
+            shadowSprite.LoadContent(Content, "background-1");
+            shadowSprite.Position = new Vector2(-graphics.PreferredBackBufferWidth, -graphics.PreferredBackBufferHeight);
         }
 
         void RotateX(KeyboardState newstate, float upMax, float downMax, float xMax)
@@ -222,18 +203,22 @@ namespace EverDarker
                 if (direction == Keys.Up)
                 {
                     player.UpdateY(-moveSpeed);
+                    shadowSprite.UpdateY(-moveSpeed);
                 }
                 else if (direction == Keys.Down)
                 {
                     player.UpdateY(moveSpeed);
+                    shadowSprite.UpdateY(moveSpeed);
                 }
                 else if (direction == Keys.Right)
                 {
                     player.UpdateX(moveSpeed);
+                    shadowSprite.UpdateX(moveSpeed);
                 }
                 else if (direction == Keys.Left)
                 {
                     player.UpdateX(-moveSpeed);
+                    shadowSprite.UpdateX(-moveSpeed);
                 }
             }
         }
@@ -364,17 +349,17 @@ namespace EverDarker
                     shadowFrame++;
                 }
             }
-            spriteBatch.Draw(shadows[shadowFrame], shadowRectangle, Color.White);
+            spriteBatch.Draw(shadows[shadowFrame], shadowSprite.Position, Color.White);
             spriteBatch.End();
 
-            if (gameTime.TotalGameTime.TotalSeconds < 11)
-            {
-                spriteBatch.Begin();
-                spriteBatch.Draw(gif.GetTexture(), new Rectangle(0, 0, graphics.PreferredBackBufferWidth , graphics.PreferredBackBufferHeight), Color.White);
-                spriteBatch.End();
+            //if (gameTime.TotalGameTime.TotalSeconds < 11)
+            //{
+            //    spriteBatch.Begin();
+            //    spriteBatch.Draw(gif.GetTexture(), new Rectangle(0, 0, graphics.PreferredBackBufferWidth , graphics.PreferredBackBufferHeight), Color.White);
+            //    spriteBatch.End();
 
-                gif.Update(gameTime.ElapsedGameTime.Ticks);
-            }
+            //    gif.Update(gameTime.ElapsedGameTime.Ticks);
+            //}
 
             base.Draw(gameTime);
         }
