@@ -307,7 +307,6 @@ namespace EverDarker
                     wall.Draw(this.spriteBatch);
                 }
             }
-            /*
             DateTime shadowNow = DateTime.Now;
             if(shadowNow.Ticks > (LastShadow.Ticks + levelLength/numOfFrames))
             {
@@ -318,7 +317,6 @@ namespace EverDarker
                 }
             }
             spriteBatch.Draw(shadows[shadowFrame], shadowRectangle, Color.White);
-            */
 
             spriteBatch.End();
             base.Draw(gameTime);
