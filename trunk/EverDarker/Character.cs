@@ -12,7 +12,6 @@ namespace EverDarker
     class Character : Sprite
     {
         public float RotationAngle = 0f;
-        public Rectangle bounds;
         public List<Texture2D> textures;
         int texturesIndex = 1;
         public bool walking = false;
@@ -27,7 +26,7 @@ namespace EverDarker
             textures.Add(theContentManager.Load<Texture2D>("Character-2-LeftFoot"));
 
             this.Position = new Vector2(viewPort.Width / 2, viewPort.Height / 2);
-            this.bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.spriteTexture.Width, this.spriteTexture.Height);
+            this.Bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.spriteTexture.Width, this.spriteTexture.Height);
         }
 
         //Draw the sprite to the screen 

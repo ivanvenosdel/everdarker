@@ -13,6 +13,7 @@ namespace EverDarker
         #region Members
         //The current position of the Sprite
         public Vector2 Position = new Vector2(0, 0);
+        private Vector2 lastPosition;
         //The texture object used when drawing the sprite
         public Texture2D spriteTexture;
         //The size of the Sprite
@@ -41,16 +42,24 @@ namespace EverDarker
         public bool CheckCollision(Rectangle bounds)
         {
             bool collision = this.Bounds.Intersects(bounds);
+            if (collision)
+            {
+                this.Position = this.lastPosition;
+                this.Bounds.X = (int)this.lastPosition.X;
+                this.Bounds.Y = (int)this.lastPosition.Y;
+            }
             return collision;
         }
 
         public void UpdateX(float deltaX)
         {
+            this.lastPosition = new Vector2(this.Position.X, this.Position.Y);
             this.Position.X += deltaX;
             this.Bounds.X = (int)this.Position.X;
         }
         public void UpdateY(float deltaY)
         {
+            this.lastPosition = new Vector2(this.Position.X, this.Position.Y);
             this.Position.Y += deltaY;
             this.Bounds.Y = (int)this.Position.Y;
         }
