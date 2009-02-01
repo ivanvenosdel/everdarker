@@ -2,7 +2,7 @@
  * ~~Base floor texture~~
  * ~~Character~~
  * ~~Character movement~~
- * Cubical walls
+ * ~~Cubical walls~~
  * Darkness Overlay
  * Cubical wall clipping
 
