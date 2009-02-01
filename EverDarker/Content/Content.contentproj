@@ -219,6 +219,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cubicle-TwoSided-Verticle.PNG">
+      <Name>Cubicle-TwoSided-Verticle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="background-1.png">
       <Name>background-1</Name>
       <Importer>TextureImporter</Importer>
