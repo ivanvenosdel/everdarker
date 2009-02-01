@@ -53,6 +53,8 @@ namespace EverDarker
         Rectangle shadowRectangle;
         DateTime LastShadow;
         int shadowFrame = 0;
+        uint levelLength = 3000000000;
+        int numOfFrames = 12;
 
         //Vectors
         Vector2 ZeroPosition;
@@ -340,10 +342,10 @@ namespace EverDarker
                 }
             }
             DateTime now = DateTime.Now;
-            if(now.Ticks > (LastShadow.Ticks + 50000000))
+            if(now.Ticks > (LastShadow.Ticks + levelLength/numOfFrames))
             {
                 LastShadow = now;
-                if (shadowFrame != 11)
+                if (shadowFrame != numOfFrames - 1)
                 {
                     shadowFrame++;
                 }
