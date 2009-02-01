@@ -150,7 +150,7 @@ namespace EverDarker
                     {
                         Rectangle wallRectangle = new Rectangle((int)grid[i][j].Position.X, 
                             (int)grid[i][j].Position.Y, grid[i][j].spriteTexture.Width, 
-                            grid[i][j].spriteTexture.Height + wallHeightPadding);
+                            grid[i][j].spriteTexture.Height + 20);
 
                         if (!player.boundingBox.Intersects(wallRectangle) || (noDown))
                         {
