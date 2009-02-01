@@ -226,6 +226,8 @@ namespace EverDarker
                     shadowSprite.UpdateX(-moveSpeed);
                 }
             }
+            else
+                shadowSprite.MoveToLastPosition();
         }
 
         void BasicMovement(GameTime gameTime)

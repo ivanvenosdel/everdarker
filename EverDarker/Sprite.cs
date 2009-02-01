@@ -44,11 +44,16 @@ namespace EverDarker
             bool collision = this.Bounds.Intersects(bounds);
             if (collision)
             {
-                this.Position = this.lastPosition;
-                this.Bounds.X = (int)this.lastPosition.X;
-                this.Bounds.Y = (int)this.lastPosition.Y;
+                MoveToLastPosition();
             }
             return collision;
+        }
+
+        public void MoveToLastPosition()
+        {
+            this.Position = this.lastPosition;
+            this.Bounds.X = (int)this.lastPosition.X;
+            this.Bounds.Y = (int)this.lastPosition.Y;
         }
 
         public void UpdateX(float deltaX)
