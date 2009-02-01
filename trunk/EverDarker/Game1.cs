@@ -303,9 +303,6 @@ namespace EverDarker
                 mainSoundOn = true;
             }
 
-
-
-            IntroComplete = true;
             spriteBatch.Begin();
             floor.Draw(this.spriteBatch);
             DateTime walkNow = DateTime.Now;
