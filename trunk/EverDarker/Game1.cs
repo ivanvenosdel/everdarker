@@ -36,8 +36,8 @@ namespace EverDarker
         //Background
         Sprite floor;
 
-        //Cubicle Wall
-        List<List<Sprite>> grid = new List<List<Sprite>>();
+        //Grid
+        List<List<Tile>> grid = new List<List<Tile>>();
 
         //Character
         Character player;
@@ -89,8 +89,6 @@ namespace EverDarker
 
             //floor
             floor = new Sprite();
-            //floor = new Sprite();
-            //floor.Scale = .5f;
             //character
             player = new Character();
             
@@ -116,14 +114,24 @@ namespace EverDarker
             Viewport viewPort = graphics.GraphicsDevice.Viewport;
             player.Scale = 0.1f;
             player.LoadContent(this.Content, "Character-2-Green", viewPort);
-
-            //Cubicle Walls
-            List<Sprite> walls = new List<Sprite>();
-            WallSprite wall = new WallSprite();
-            wall.LoadContent(Content, "Cubicle-TwoSided", viewPort);
-            walls.Add(wall);
-            grid.Add(walls);
-
+            
+            //Grid
+            this.grid = new List<List<Tile>>(6);
+            for (int i = 0; i < 6; i++)
+            {
+                List<Tile> row = new List<Tile>(8);
+                int x = 0;
+                int y = 0;
+                for (int j = 0; j < 8; j++)
+                {
+                    Tile tile = new Tile(x, y);
+                    tile.LoadContent(Content, viewPort);
+                    row.Add(tile);
+                    x = tile.area.Right;
+                    y = tile.area.Bottom;
+                }
+                this.grid.Add(row);
+            }
             //Shadow Images
             shadow1 = Content.Load<Texture2D>("background-1");
             shadow2 = Content.Load<Texture2D>("background-2");
@@ -183,29 +191,34 @@ namespace EverDarker
         void Move(Keys direction)
         {
             float moveSpeed = 1;
-            for (int wallsIndex = 0; wallsIndex < grid.Count(); wallsIndex++)
+            bool collision = false;
+            for (int row = 0; row < grid.Count(); row++)
             {
-                for (int i = 0; i < grid[wallsIndex].Count(); i++)
+                for (int i = 0; i < grid[row].Count(); i++)
                 {
-                    if (!this.player.CheckCollision(grid[wallsIndex][i].Bounds))
+                    foreach (WallSprite wall in grid[row][i].Walls.Values)
                     {
-                        if (direction == Keys.Up)
-                        {
-                            player.UpdateY(-moveSpeed);
-                        }
-                        else if (direction == Keys.Down)
-                        {
-                            player.UpdateY(moveSpeed);
-                        }
-                        else if (direction == Keys.Right)
-                        {
-                            player.UpdateX(moveSpeed);
-                        }
-                        else if (direction == Keys.Left)
-                        {
-                            player.UpdateX(-moveSpeed);
-                        }
+                        collision = this.player.CheckCollision(wall.Bounds);
                     }
+                }
+            }
+            if (!collision)
+            {
+                if (direction == Keys.Up)
+                {
+                    player.UpdateY(-moveSpeed);
+                }
+                else if (direction == Keys.Down)
+                {
+                    player.UpdateY(moveSpeed);
+                }
+                else if (direction == Keys.Right)
+                {
+                    player.UpdateX(moveSpeed);
+                }
+                else if (direction == Keys.Left)
+                {
+                    player.UpdateX(-moveSpeed);
                 }
             }
         }
@@ -320,14 +333,16 @@ namespace EverDarker
                 player.Draw(this.spriteBatch);
 
             //drawing the cubes
-            foreach (List<Sprite> walls in grid)
+            foreach (List<Tile> row in grid)
             {
-                foreach (Sprite wall in walls)
+                foreach (Tile tile in row)
                 {
-                    wall.Draw(this.spriteBatch);
+                    foreach (WallSprite wall in tile.Walls.Values)
+                    {
+                        wall.Draw(this.spriteBatch);
+                    }
                 }
             }
-            /*
             DateTime shadowNow = DateTime.Now;
             if(shadowNow.Ticks > (LastShadow.Ticks + levelLength/numOfFrames))
             {
@@ -338,7 +353,6 @@ namespace EverDarker
                 }
             }
             spriteBatch.Draw(shadows[shadowFrame], shadowRectangle, Color.White);
-            */
             spriteBatch.End();
 
             if (gameTime.TotalGameTime.TotalSeconds < 11)

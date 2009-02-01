@@ -25,7 +25,7 @@ namespace EverDarker
             textures.Add(theContentManager.Load<Texture2D>("Character-2-RightFoot"));
             textures.Add(theContentManager.Load<Texture2D>("Character-2-LeftFoot"));
 
-            this.Position = new Vector2(viewPort.Width / 2, viewPort.Height / 2);
+            this.Position = new Vector2(32, 32);
             this.Bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.spriteTexture.Width, this.spriteTexture.Height);
         }
 
