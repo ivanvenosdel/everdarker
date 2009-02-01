@@ -24,9 +24,13 @@ namespace EverDarker
 
         //gif animation
         GifAnimation gif = null;
+        bool IntroComplete = false;
 
         //Audio Objects
+        SoundEffect bgMusic;
+        SoundEffect walkSFX;
         bool walkSound;
+        bool mainSoundOn = false;
         DateTime lastWalk;
 
         //Background
@@ -100,6 +104,10 @@ namespace EverDarker
 
             //gif animation
             gif = Content.Load<GifAnimation>("IntroToGame-Everdarker");
+
+            //Audio
+            bgMusic = Content.Load<SoundEffect>("Audio-main");
+            walkSFX = Content.Load<SoundEffect>("myfootstep");
 
             //Floor
             floor.LoadContent(Content, "Carpet");
@@ -209,6 +217,9 @@ namespace EverDarker
 
             player.walking = (newstate.IsKeyDown(Keys.Up) || newstate.IsKeyDown(Keys.Down) || newstate.IsKeyDown(Keys.Right) || newstate.IsKeyDown(Keys.Left));
 
+            if (!player.walking)
+                walkSFX.Play(0);
+
             if (newstate.IsKeyDown(Keys.Up))
             {
                 //Rotate
@@ -274,13 +285,15 @@ namespace EverDarker
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            if (!mainSoundOn)
+            {
+                bgMusic.Play();
+                mainSoundOn = true;
+            }
 
-            //spriteBatch.Begin();
-            //spriteBatch.Draw(gif.GetTexture(), new Rectangle(0, 0, 800, 600), Color.White);
-            //spriteBatch.End();
 
-            //gif.Update(gameTime.ElapsedGameTime.Ticks/10);
 
+            IntroComplete = true;
             spriteBatch.Begin();
             floor.Draw(this.spriteBatch);
             DateTime walkNow = DateTime.Now;
@@ -288,8 +301,9 @@ namespace EverDarker
             {
                 player.Walk(this.spriteBatch);
 
-                if (walkSound == false)
+                if (!walkSound)
                 {
+                    walkSFX.Play();
                     walkSound = true;
                     lastWalk = walkNow;
                 }
@@ -326,6 +340,16 @@ namespace EverDarker
             spriteBatch.Draw(shadows[shadowFrame], shadowRectangle, Color.White);
             */
             spriteBatch.End();
+
+            if (gameTime.TotalGameTime.TotalSeconds < 11)
+            {
+                spriteBatch.Begin();
+                spriteBatch.Draw(gif.GetTexture(), new Rectangle(0, 0, 1024, 768), Color.White);
+                spriteBatch.End();
+
+                gif.Update(50000);
+            }
+
             base.Draw(gameTime);
         }
     }
