@@ -21,6 +21,11 @@ namespace EverDarker
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //Audio Objects
+        SoundEffect soundEffect;
+        bool walkSound;
+        DateTime lastWalk;
+
         //Background
         ScrollingBackground floor;
 
@@ -140,6 +145,9 @@ namespace EverDarker
             shadows.Add(shadow12);
 
             shadowRectangle = new Rectangle((int)0, (int)0, viewPort.Width, viewPort.Height);
+
+            //Audio
+            soundEffect = Content.Load<SoundEffect>("myfootstep");
         }
 
         void RotateX(KeyboardState newstate, float upMax, float downMax, float xMax)
@@ -324,14 +332,28 @@ namespace EverDarker
 
             spriteBatch.Begin();
             floor.Draw(this.spriteBatch);
+            DateTime walkNow = DateTime.Now;
             if (player.walking)
+            {
                 player.Walk(this.spriteBatch);
+
+                if (walkSound == false)
+                {
+                    soundEffect.Play();
+                    walkSound = true;
+                    lastWalk = walkNow;
+                }
+                else
+                {
+                    if(walkNow.Ticks > (lastWalk.Ticks + 5000000))
+                    {
+                        walkSound = false;
+                    }
+                }
+    
+            }
             else
                 player.Draw(this.spriteBatch);
-            /*
-            spriteBatch.Draw(this.player.texture, screenPos, null, Color.White, rotationAngle,
-        origin, 0.45f, SpriteEffects.None, 0f);
-            */
 
             //drawing the cubes
             for (int i = 0; i <= grid.Count-1; i++)
@@ -341,10 +363,10 @@ namespace EverDarker
                     grid[i][j].Draw(this.spriteBatch);
                 }
             }
-            DateTime now = DateTime.Now;
-            if(now.Ticks > (LastShadow.Ticks + levelLength/numOfFrames))
+            DateTime shadowNow = DateTime.Now;
+            if(shadowNow.Ticks > (LastShadow.Ticks + levelLength/numOfFrames))
             {
-                LastShadow = now;
+                LastShadow = shadowNow;
                 if (shadowFrame != numOfFrames - 1)
                 {
                     shadowFrame++;

@@ -182,12 +182,12 @@
       <Time>2009-01-31T16:40:51.609375-06:00</Time>
     </Item>
     <Item>
-      <Source>audio\myfootstep.wav</Source>
-      <Name>audio\myfootstep</Name>
+      <Source>myfootstep.wav</Source>
+      <Name>myfootstep</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\EverDarker\EverDarker\bin\x86\Debug\Content\audio\myfootstep.xnb</Output>
+      <Output>C:\EverDarker\EverDarker\bin\x86\Debug\Content\myfootstep.xnb</Output>
       <Time>2009-01-31T20:45:46.28125-06:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
