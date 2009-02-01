@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EverDarker
 {
-    class Sprite
+    public class Sprite
     {
         #region Members
         //The current position of the Sprite
@@ -16,30 +16,44 @@ namespace EverDarker
         //The texture object used when drawing the sprite
         public Texture2D spriteTexture;
         //The size of the Sprite
-        public Rectangle Size;
+        public Rectangle Bounds;
         //Used to size the Sprite up or down from the original image
-        public float Scale = 1.0f;
+        public float Scale = 0f;
         //For the center of the sprite
         public Vector2 origin;
         
         #endregion Members
 
-        //Load the texture for the sprite using the Content Pipeline
         public void LoadContent(ContentManager theContentManager, string theAssetName)
         {
-            //Load and Calc sprite size
             spriteTexture = theContentManager.Load<Texture2D>(theAssetName);
             origin.X = spriteTexture.Width / 2;
             origin.Y = spriteTexture.Height / 2;
-            Size = new Rectangle(0, 0, (int)(spriteTexture.Width * Scale), (int)(spriteTexture.Height * Scale));
+            this.Bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.spriteTexture.Width, this.spriteTexture.Height);
         }
         
         //Draw the sprite to the screen 
         public void Draw(SpriteBatch theSpriteBatch)
         {
-            theSpriteBatch.Draw(spriteTexture, Position, 
-                new Rectangle(0, 0, spriteTexture.Width, spriteTexture.Height), Color.White, 
-                0.0f, Vector2.Zero, Scale, SpriteEffects.None, 0);
+            theSpriteBatch.Draw(spriteTexture, Position, null, Color.White);
+        }
+
+        public bool CheckCollision(Rectangle bounds)
+        {
+            bool collision = this.Bounds.Intersects(bounds);
+            return collision;
+        }
+
+        // ScrollingBackground.Update
+        public void UpdateX(float deltaX)
+        {
+            this.Position.X += deltaX;
+            this.Position.X = this.Position.X % spriteTexture.Width;
+        }
+        public void UpdateY(float deltaY)
+        {
+            this.Position.Y += deltaY;
+            this.Position.Y = this.Position.Y % spriteTexture.Height;
         }
     }
 }

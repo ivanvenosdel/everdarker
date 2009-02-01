@@ -12,7 +12,7 @@ namespace EverDarker
     class Character : Sprite
     {
         public float RotationAngle = 0f;
-        public Rectangle boundingBox;
+        public Rectangle bounds;
         public List<Texture2D> textures;
         int texturesIndex = 1;
         public bool walking = false;
@@ -27,14 +27,14 @@ namespace EverDarker
             textures.Add(theContentManager.Load<Texture2D>("Character-2-LeftFoot"));
 
             this.Position = new Vector2(viewPort.Width / 2, viewPort.Height / 2);
-            this.boundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.spriteTexture.Width, this.spriteTexture.Height);
+            this.bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.spriteTexture.Width, this.spriteTexture.Height);
         }
 
         //Draw the sprite to the screen 
         public void Draw(SpriteBatch theSpriteBatch)
         {
             theSpriteBatch.Draw(spriteTexture, Position,
-                null, Color.White, RotationAngle, origin, Scale, SpriteEffects.None, 0);
+                null, Color.White, RotationAngle, origin, 1f, SpriteEffects.None, 0);
         }
 
         public void Walk(SpriteBatch theSpriteBatch)
@@ -48,7 +48,7 @@ namespace EverDarker
                 this.lastWalk = now;
             }
             theSpriteBatch.Draw(textures[texturesIndex], Position,
-                    null, Color.White, RotationAngle, origin, Scale, SpriteEffects.None, 0);
+                    null, Color.White, RotationAngle, origin, 1f, SpriteEffects.None, 0);
         }
     }
 }

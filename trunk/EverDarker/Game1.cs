@@ -30,13 +30,7 @@ namespace EverDarker
         ScrollingBackground floor;
 
         //Cubicle Wall
-        WallSprite wall;
-        List<List<WallSprite>> grid = new List<List<WallSprite>>();
-        int wallHeightPadding = 65;
-        bool noDown = false;
-        bool noUp = false;
-        bool noRight = false;
-        bool noLeft = false;
+        List<List<Sprite>> grid = new List<List<Sprite>>();
 
         //Character
         Character player;
@@ -90,15 +84,11 @@ namespace EverDarker
             //character
             player = new Character();
             
-            //Cubicle Wall
-            wall = new WallSprite();
-
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            Random rand = new Random();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -112,11 +102,11 @@ namespace EverDarker
             player.LoadContent(this.Content, "Character-2-Green", viewPort);
 
             //Cubicle Walls
-            wall.LoadContent(this.Content);
-
-            grid.Add(new List<WallSprite>());
-            grid[0].Add(wall);
-            grid[0][0].Position.X = rand.Next(viewPort.Width - grid[0][0].spriteTexture.Width);
+            List<Sprite> walls = new List<Sprite>();
+            WallSprite wall = new WallSprite();
+            wall.LoadContent(Content, "Cubicle-TwoSided", viewPort);
+            walls.Add(wall);
+            grid.Add(walls);
 
             //Shadow Images
             shadow1 = Content.Load<Texture2D>("background-1");
@@ -177,11 +167,44 @@ namespace EverDarker
             }
         }
 
+        void Move(Keys direction)
+        {
+            float moveSpeed = 1;
+            for (int wallsIndex = 0; wallsIndex < grid.Count(); wallsIndex++)
+            {
+                for (int i = 0; i < grid[wallsIndex].Count(); i++)
+                {
+                    if (!this.player.CheckCollision(grid[wallsIndex][i].Bounds))
+                    {
+                        if (direction == Keys.Up)
+                        {
+                            floor.UpdateY(moveSpeed);
+                            grid[wallsIndex][i].UpdateY(moveSpeed);
+                        }
+                        else if (direction == Keys.Down)
+                        {
+                            floor.UpdateY(-moveSpeed);
+                            grid[wallsIndex][i].UpdateY(-moveSpeed);
+                        }
+                        else if (direction == Keys.Right)
+                        {
+                            floor.UpdateX(-moveSpeed);
+                            grid[wallsIndex][i].UpdateX(-moveSpeed);
+                        }
+                        else if (direction == Keys.Left)
+                        {
+                            floor.UpdateX(moveSpeed);
+                            grid[wallsIndex][i].UpdateX(moveSpeed);
+                        }
+                    }
+                }
+            }
+        }
+
         void BasicMovement(GameTime gameTime)
         {
             KeyboardState newstate = Keyboard.GetState();
             Viewport viewport = graphics.GraphicsDevice.Viewport;
-            float moveSpeed = 1;
 
             player.walking = (newstate.IsKeyDown(Keys.Up) || newstate.IsKeyDown(Keys.Down) || newstate.IsKeyDown(Keys.Right) || newstate.IsKeyDown(Keys.Left));
 
@@ -197,98 +220,21 @@ namespace EverDarker
                     else if (player.RotationAngle > 0f + margin)
                         player.RotationAngle -= rotateSpeed;
                 }
-                //Movement
-                
-                for (int i = 0; i <= grid.Count - 1; i++)
-                {
-                    for (int j = 0; j <= grid[i].Count - 1; j++)
-                    {
-                        Rectangle wallRectangle = new Rectangle((int)grid[i][j].Position.X, 
-                            (int)grid[i][j].Position.Y, grid[i][j].spriteTexture.Width, 
-                            grid[i][j].spriteTexture.Height);
-
-                        if (!player.boundingBox.Intersects(wallRectangle) || (noDown))
-                        {
-                            grid[i][j].Move(0, 3);
-                            floor.UpdateY(moveSpeed);
-
-                            if (!player.boundingBox.Intersects(wallRectangle))
-                            {
-                                noDown = false;
-                                noRight = false;
-                                noLeft = false;
-                            }
-                        }
-                        else
-                        {
-                            noUp = true;
-                        }
-                    }
-                }
+                Move(Keys.Up);
             }
             if (newstate.IsKeyDown(Keys.Down))
             {
-                for (int i = 0; i <= grid.Count - 1; i++)
-                {
-                    for (int j = 0; j <= grid[i].Count - 1; j++)
-                    {
-                        Rectangle wallRectangle = new Rectangle((int)grid[i][j].Position.X,
-                            (int)grid[i][j].Position.Y + 55, grid[i][j].spriteTexture.Width,
-                            grid[i][j].spriteTexture.Height);
-
-                        if (!player.boundingBox.Intersects(wallRectangle) || (noUp))
-                        {
-                            grid[i][j].Move(0, -3);
-                            floor.UpdateY(-moveSpeed);
-                            if (!player.boundingBox.Intersects(wallRectangle))
-                            {
-                                noUp = false;
-                                noRight = false;
-                                noLeft = false;
-                            }
-                        }
-                        else
-                        {
-                            noDown = true;
-                        }
-                    }
-                }
+                Move(Keys.Down);
             }
             if (newstate.IsKeyDown(Keys.Right))
             {
                 RotateX(newstate, .785f, 2.355f, 1.57f);
-
-                for (int i = 0; i <= grid.Count - 1; i++)
-                {
-                    for (int j = 0; j <= grid[i].Count - 1; j++)
-                    {
-                        Rectangle wallRectangle = new Rectangle((int)grid[i][j].Position.X,
-                           (int)grid[i][j].Position.Y, grid[i][j].spriteTexture.Width,
-                           grid[i][j].spriteTexture.Height + wallHeightPadding);
-
-                        if (!player.boundingBox.Intersects(wallRectangle) || (noLeft))
-                        {
-                            grid[i][j].Move(-3, 0);
-                            floor.UpdateX(-moveSpeed);
-                        }
-                        else
-                        {
-                            noRight = true;
-                        }
-                    }
-                }
+                Move(Keys.Right);
             }
             if (newstate.IsKeyDown(Keys.Left))
             {
                 RotateX(newstate, -.785f, -2.355f, -1.57f);
-                floor.UpdateX(moveSpeed);
-                for (int i = 0; i <= grid.Count - 1; i++)
-                {
-                    for (int j = 0; j <= grid[i].Count - 1; j++)
-                    {
-                        grid[i][j].Move(3, 0);
-                    }
-                }
+                Move(Keys.Left);
             }
             float circle = MathHelper.Pi * 2;
             player.RotationAngle = player.RotationAngle % circle;
@@ -313,8 +259,6 @@ namespace EverDarker
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
-            
 
             // TODO: Add your update logic here
             BasicMovement(gameTime);
@@ -356,13 +300,14 @@ namespace EverDarker
                 player.Draw(this.spriteBatch);
 
             //drawing the cubes
-            for (int i = 0; i <= grid.Count-1; i++)
+            foreach (List<Sprite> walls in grid)
             {
-                for (int j = 0; j <= grid[i].Count-1; j++)
+                foreach (Sprite wall in walls)
                 {
-                    grid[i][j].Draw(this.spriteBatch);
+                    wall.Draw(this.spriteBatch);
                 }
             }
+            /*
             DateTime shadowNow = DateTime.Now;
             if(shadowNow.Ticks > (LastShadow.Ticks + levelLength/numOfFrames))
             {
@@ -372,8 +317,8 @@ namespace EverDarker
                     shadowFrame++;
                 }
             }
-
             spriteBatch.Draw(shadows[shadowFrame], shadowRectangle, Color.White);
+            */
 
             spriteBatch.End();
             base.Draw(gameTime);

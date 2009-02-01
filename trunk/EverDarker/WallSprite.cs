@@ -8,35 +8,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EverDarker
 {
-    class WallSprite
+    class WallSprite : Sprite
     {
-        //The current position of the WallSprite
-        public Vector2 Position = new Vector2(0,0);
-
-        //The Bounding Box of the WallSprite
-        public Rectangle boundingBox;
-
-        //The texture object used when drawing the sprite
-        public Texture2D spriteTexture;
-
-        //Load the texture for the sprite using the Content Pipeline
-        public void LoadContent(ContentManager theContentManager)
+        public void LoadContent(ContentManager theContentManager, string theAssetName, Viewport viewPort)
         {
-            spriteTexture = theContentManager.Load<Texture2D>("Cubicle-TwoSided");
-            boundingBox = new Rectangle((int)Position.X, (int)Position.Y, spriteTexture.Width, spriteTexture.Height);
-        }
-        
-        //Draw the sprite to the screen 
-        public void Draw(SpriteBatch theSpriteBatch)
-        {
-            theSpriteBatch.Draw(spriteTexture, Position, boundingBox, Color.White, 0f, new Vector2(), 1f, SpriteEffects.None, 0f);
-            //theSpriteBatch.Draw(spriteTexture, Position, null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
-        }
-
-        public void Move(int horz, int vert)
-        {
-            Position.X += horz;
-            Position.Y += vert;
+            spriteTexture = theContentManager.Load<Texture2D>(theAssetName);
+            origin.X = spriteTexture.Width / 2;
+            origin.Y = spriteTexture.Height / 2;
+            Random rand = new Random();
+            this.Position.X = rand.Next(viewPort.Width - this.spriteTexture.Width);
+            this.Position.Y = rand.Next(viewPort.Height - this.spriteTexture.Height);
+            this.Bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.spriteTexture.Width, this.spriteTexture.Height);
         }
     }
 }
