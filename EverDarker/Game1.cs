@@ -63,7 +63,7 @@ namespace EverDarker
             Content.RootDirectory = "Content";
             this.graphics.PreferredBackBufferWidth = 1024;
             this.graphics.PreferredBackBufferHeight = 768;
-            this.graphics.IsFullScreen = true;
+            //this.graphics.IsFullScreen = true;
         }
 
         /// <summary>
