@@ -1,0 +1,1 @@
+http://msmvps.com/blogs/mykre/archive/2007/10/27/xna-tutorial-creating-a-splash-screen.aspx
