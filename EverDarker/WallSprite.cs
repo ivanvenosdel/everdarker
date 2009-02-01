@@ -15,9 +15,6 @@ namespace EverDarker
             spriteTexture = theContentManager.Load<Texture2D>(theAssetName);
             origin.X = spriteTexture.Width / 2;
             origin.Y = spriteTexture.Height / 2;
-            Random rand = new Random();
-            this.Position.X = rand.Next(viewPort.Width - this.spriteTexture.Width);
-            this.Position.Y = rand.Next(viewPort.Height - this.spriteTexture.Height);
             this.Bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.spriteTexture.Width, this.spriteTexture.Height);
         }
     }
