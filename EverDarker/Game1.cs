@@ -36,6 +36,24 @@ namespace EverDarker
         //Character
         Character player;
 
+        //Shadow
+        List<Texture2D> shadows = new List<Texture2D>();
+        Texture2D shadow1;
+        Texture2D shadow2;
+        Texture2D shadow3;
+        Texture2D shadow4;
+        Texture2D shadow5;
+        Texture2D shadow6;
+        Texture2D shadow7;
+        Texture2D shadow8;
+        Texture2D shadow9;
+        Texture2D shadow10;
+        Texture2D shadow11;
+        Texture2D shadow12;
+        Rectangle shadowRectangle;
+        DateTime LastShadow;
+        int shadowFrame = 0;
+
         //Vectors
         Vector2 ZeroPosition;
 
@@ -92,6 +110,34 @@ namespace EverDarker
             grid.Add(new List<WallSprite>());
             grid[0].Add(wall);
             grid[0][0].Position.X = rand.Next(viewPort.Width - grid[0][0].spriteTexture.Width);
+
+            //Shadow Images
+            shadow1 = Content.Load<Texture2D>("background-1");
+            shadow2 = Content.Load<Texture2D>("background-2");
+            shadow3 = Content.Load<Texture2D>("background-3");
+            shadow4 = Content.Load<Texture2D>("background-4");
+            shadow5 = Content.Load<Texture2D>("background-5");
+            shadow6 = Content.Load<Texture2D>("background-6");
+            shadow7 = Content.Load<Texture2D>("background-7");
+            shadow8 = Content.Load<Texture2D>("background-8");
+            shadow9 = Content.Load<Texture2D>("background-9");
+            shadow10 = Content.Load<Texture2D>("background-10");
+            shadow11 = Content.Load<Texture2D>("background-11");
+            shadow12 = Content.Load<Texture2D>("background-11");
+            shadows.Add(shadow1);
+            shadows.Add(shadow2);
+            shadows.Add(shadow3);
+            shadows.Add(shadow4);
+            shadows.Add(shadow5);
+            shadows.Add(shadow6);
+            shadows.Add(shadow7);
+            shadows.Add(shadow8);
+            shadows.Add(shadow9);
+            shadows.Add(shadow10);
+            shadows.Add(shadow11);
+            shadows.Add(shadow12);
+
+            shadowRectangle = new Rectangle((int)0, (int)0, viewPort.Width, viewPort.Height);
         }
 
         void RotateX(KeyboardState newstate, float upMax, float downMax, float xMax)
@@ -293,6 +339,17 @@ namespace EverDarker
                     grid[i][j].Draw(this.spriteBatch);
                 }
             }
+            DateTime now = DateTime.Now;
+            if(now.Ticks > (LastShadow.Ticks + 50000000))
+            {
+                LastShadow = now;
+                if (shadowFrame != 11)
+                {
+                    shadowFrame++;
+                }
+            }
+
+            spriteBatch.Draw(shadows[shadowFrame], shadowRectangle, Color.White);
 
             spriteBatch.End();
             base.Draw(gameTime);
