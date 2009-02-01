@@ -44,7 +44,6 @@ namespace EverDarker
             return collision;
         }
 
-        // ScrollingBackground.Update
         public void UpdateX(float deltaX)
         {
             this.Position.X += deltaX;
