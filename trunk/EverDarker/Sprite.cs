@@ -48,12 +48,12 @@ namespace EverDarker
         public void UpdateX(float deltaX)
         {
             this.Position.X += deltaX;
-            this.Position.X = this.Position.X % spriteTexture.Width;
+            this.Bounds.X = (int)this.Position.X;
         }
         public void UpdateY(float deltaY)
         {
             this.Position.Y += deltaY;
-            this.Position.Y = this.Position.Y % spriteTexture.Height;
+            this.Bounds.Y = (int)this.Position.Y;
         }
     }
 }

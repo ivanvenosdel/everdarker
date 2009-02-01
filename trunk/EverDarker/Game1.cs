@@ -26,7 +26,7 @@ namespace EverDarker
         DateTime lastWalk;
 
         //Background
-        ScrollingBackground floor;
+        Sprite floor;
 
         //Cubicle Wall
         List<List<Sprite>> grid = new List<List<Sprite>>();
@@ -92,8 +92,7 @@ namespace EverDarker
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //Floor
-            Texture2D floorTexture = Content.Load<Texture2D>("Carpet");
-            floor.Load(graphics.GraphicsDevice, floorTexture);
+            floor.LoadContent(Content, "Carpet");
 
             //Player
             Viewport viewPort = graphics.GraphicsDevice.Viewport;
@@ -174,23 +173,19 @@ namespace EverDarker
                     {
                         if (direction == Keys.Up)
                         {
-                            floor.UpdateY(moveSpeed);
-                            grid[wallsIndex][i].UpdateY(moveSpeed);
+                            player.UpdateY(-moveSpeed);
                         }
                         else if (direction == Keys.Down)
                         {
-                            floor.UpdateY(-moveSpeed);
-                            grid[wallsIndex][i].UpdateY(-moveSpeed);
+                            player.UpdateY(moveSpeed);
                         }
                         else if (direction == Keys.Right)
                         {
-                            floor.UpdateX(-moveSpeed);
-                            grid[wallsIndex][i].UpdateX(-moveSpeed);
+                            player.UpdateX(moveSpeed);
                         }
                         else if (direction == Keys.Left)
                         {
-                            floor.UpdateX(moveSpeed);
-                            grid[wallsIndex][i].UpdateX(moveSpeed);
+                            player.UpdateX(-moveSpeed);
                         }
                     }
                 }
@@ -302,6 +297,7 @@ namespace EverDarker
                     wall.Draw(this.spriteBatch);
                 }
             }
+            /*
             DateTime shadowNow = DateTime.Now;
             if(shadowNow.Ticks > (LastShadow.Ticks + levelLength/numOfFrames))
             {
@@ -312,7 +308,7 @@ namespace EverDarker
                 }
             }
             spriteBatch.Draw(shadows[shadowFrame], shadowRectangle, Color.White);
-
+            */
             spriteBatch.End();
             base.Draw(gameTime);
         }
