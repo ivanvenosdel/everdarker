@@ -41,6 +41,9 @@ namespace EverDarker
         //Character
         Character player;
 
+        //Maze generation
+        Maze theMaze  = new Maze();
+
         //Shadow
         List<Texture2D> shadows = new List<Texture2D>();
         Texture2D shadow1;
@@ -66,8 +69,8 @@ namespace EverDarker
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            this.graphics.PreferredBackBufferWidth = 1024;
-            this.graphics.PreferredBackBufferHeight = 768;
+            this.graphics.PreferredBackBufferWidth = 700;
+            this.graphics.PreferredBackBufferHeight = 700;
             //this.graphics.IsFullScreen = true;
         }
 
@@ -115,21 +118,23 @@ namespace EverDarker
             player.LoadContent(this.Content, "Character-2-Green", viewPort);
             
             //Grid
-            this.grid = new List<List<Tile>>(6);
-            for (int i = 0; i < 6; i++)
+            theMaze.Initialize();
+            theMaze.Generate();
+            this.grid = new List<List<Tile>>(7);
+            int x = 0;
+            for (int i = 0; i < 7; i++)
             {
-                List<Tile> row = new List<Tile>(8);
-                int x = 0;
+                List<Tile> column = new List<Tile>(7);
                 int y = 0;
-                for (int j = 0; j < 8; j++)
+                for (int j = 0; j < 7; j++)
                 {
-                    Tile tile = new Tile(x, y);
+                    Tile tile = new Tile(x, y, theMaze.Cells[i, j], theMaze);
                     tile.LoadContent(Content, viewPort);
-                    row.Add(tile);
-                    x = tile.area.Right;
+                    column.Add(tile);
                     y = tile.area.Bottom;
                 }
-                this.grid.Add(row);
+                this.grid.Add(column);
+                x = column[column.Count() - 1].area.Right;
             }
             //Shadow Images
             shadow1 = Content.Load<Texture2D>("background-1");
@@ -351,7 +356,7 @@ namespace EverDarker
             }
             spriteBatch.Draw(shadows[shadowFrame], shadowSprite.Position, Color.White);
             spriteBatch.End();
-
+            /*
             //if (gameTime.TotalGameTime.TotalSeconds < 11)
             //{
             //    spriteBatch.Begin();
@@ -360,7 +365,7 @@ namespace EverDarker
 
             //    gif.Update(gameTime.ElapsedGameTime.Ticks);
             //}
-
+            */
             base.Draw(gameTime);
         }
     }
