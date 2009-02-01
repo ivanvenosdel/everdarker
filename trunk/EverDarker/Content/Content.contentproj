@@ -149,7 +149,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="audio\myfootstep.wav">
+    <Compile Include="myfootstep.wav">
       <Name>myfootstep</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
