@@ -347,6 +347,7 @@ namespace EverDarker
                     }
                 }
             }
+            
             DateTime shadowNow = DateTime.Now;
             if(shadowNow.Ticks > (LastShadow.Ticks + levelLength/numOfFrames))
             {
@@ -367,7 +368,7 @@ namespace EverDarker
 
                 gif.Update(30000);
             }
-            
+           
             base.Draw(gameTime);
         }
     }
