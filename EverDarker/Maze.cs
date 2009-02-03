@@ -47,7 +47,6 @@ namespace EverDarker
 		public ArrayList GetNeighborsWithWalls(Cell aCell)
 		{
 			ArrayList Neighbors = new ArrayList();
-			int count = 0;
 			for (int countRow = -1; countRow <= 1; countRow++)
 				for (int countCol = -1; countCol <= 1; countCol++)
 				{
@@ -103,12 +102,12 @@ namespace EverDarker
 					CurrentCell = theCell; // make the random neighbor the new current cell
 					VisitedCells++;
 				}
+
 				else
 				{
 					// No cells with walls intact, pop current cell from stack
 					CurrentCell = (Cell)CellStack.Pop();
 				}
-
 			}
 		}
 	}

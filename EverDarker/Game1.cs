@@ -136,6 +136,7 @@ namespace EverDarker
                 this.grid.Add(column);
                 x = column[column.Count() - 1].area.Right;
             }
+
             //Shadow Images
             shadow1 = Content.Load<Texture2D>("background-1");
             shadow2 = Content.Load<Texture2D>("background-2");
@@ -158,7 +159,6 @@ namespace EverDarker
             shadows.Add(shadow9);
             shadows.Add(shadow10);
 
-            shadowSprite.LoadContent(Content, "background-1");
             shadowSprite.Position = new Vector2(-graphics.PreferredBackBufferWidth, -graphics.PreferredBackBufferHeight);
         }
 
@@ -360,14 +360,14 @@ namespace EverDarker
             spriteBatch.Draw(shadows[shadowFrame], shadowSprite.Position, Color.White);
             spriteBatch.End();
             
-            if (gameTime.TotalGameTime.TotalSeconds < 18)
-            {
-                spriteBatch.Begin();
-                spriteBatch.Draw(gif.GetTexture(), new Rectangle(0, 0, graphics.PreferredBackBufferWidth , graphics.PreferredBackBufferHeight), Color.White);
-                spriteBatch.End();
+            //if (gameTime.TotalGameTime.TotalSeconds < 18)
+            //{
+            //    spriteBatch.Begin();
+            //    spriteBatch.Draw(gif.GetTexture(), new Rectangle(0, 0, graphics.PreferredBackBufferWidth , graphics.PreferredBackBufferHeight), Color.White);
+            //    spriteBatch.End();
 
-                gif.Update(30000);
-            }
+            //    gif.Update(30000);
+            //}
            
             base.Draw(gameTime);
         }
