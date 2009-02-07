@@ -39,31 +39,39 @@ namespace EverDarker
             theSpriteBatch.Draw(spriteTexture, Position, null, Color.White);
         }
 
-        public bool CheckCollision(Rectangle bounds)
+        public bool CheckCollision(Rectangle bounds, Sprite shadow)
         {
             bool collision = this.Bounds.Intersects(bounds);
             if (collision)
             {
-                MoveToLastPosition();
+                MoveToLastPosition(shadow);
             }
             return collision;
         }
 
-        public void MoveToLastPosition()
+        public void MoveToLastPosition(Sprite shadow)
         {
+            shadow.Position = shadow.lastPosition;
             this.Position = this.lastPosition;
             this.Bounds.X = (int)this.lastPosition.X;
             this.Bounds.Y = (int)this.lastPosition.Y;
         }
 
-        public void UpdateX(float deltaX)
+        public void UpdateX(float deltaX, Sprite shadow)
         {
+            shadow.lastPosition = new Vector2(shadow.Position.X, shadow.Position.Y);
+            shadow.Position.X += deltaX;
+
             this.lastPosition = new Vector2(this.Position.X, this.Position.Y);
             this.Position.X += deltaX;
             this.Bounds.X = (int)this.Position.X;
         }
-        public void UpdateY(float deltaY)
+
+        public void UpdateY(float deltaY, Sprite shadow)
         {
+            shadow.lastPosition = new Vector2(shadow.Position.X, shadow.Position.Y);
+            shadow.Position.Y += deltaY;
+
             this.lastPosition = new Vector2(this.Position.X, this.Position.Y);
             this.Position.Y += deltaY;
             this.Bounds.Y = (int)this.Position.Y;

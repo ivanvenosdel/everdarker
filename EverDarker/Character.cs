@@ -11,7 +11,7 @@ namespace EverDarker
 {
     class Character : Sprite
     {
-        public float RotationAngle = 0f;
+        public float RotationAngle = (float) Math.PI;
         public List<Texture2D> textures;
         int texturesIndex = 1;
         public bool walking = false;
@@ -46,6 +46,7 @@ namespace EverDarker
                     texturesIndex = 1;
                 this.lastWalk = now;
             }
+            
             theSpriteBatch.Draw(textures[texturesIndex], Position,
                     null, Color.White, RotationAngle, origin, 1f, SpriteEffects.None, 0);
         }

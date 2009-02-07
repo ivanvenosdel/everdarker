@@ -72,13 +72,15 @@ namespace EverDarker
 		{
 			Cells = new Cell[kDimension, kDimension];
 			TotalCells = kDimension * kDimension;
-			for (int i = 0; i < kDimension; i++)
-				for (int j = 0; j < kDimension; j++)
-				{
-					Cells[i,j] =  new Cell();
-					Cells[i, j].Row = i;
-					Cells[i, j].Column = j;
-				}
+            for (int i = 0; i < kDimension; i++)
+            {
+                for (int j = 0; j < kDimension; j++)
+                {
+                    Cells[i, j] = new Cell();
+                    Cells[i, j].Row = i;
+                    Cells[i, j].Column = j;
+                }
+            }
 
 			CurrentCell = Cells[0,0];
 			VisitedCells = 1;

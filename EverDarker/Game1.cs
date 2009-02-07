@@ -160,31 +160,39 @@ namespace EverDarker
             shadows.Add(shadow10);
 
             shadowSprite.Position = new Vector2(-graphics.PreferredBackBufferWidth, -graphics.PreferredBackBufferHeight);
+            shadowSprite.Position.X -= 300;
         }
 
         void RotateX(KeyboardState newstate, float upMax, float downMax, float xMax)
         {
             float rotateSpeed = .03f;
-            float margin = .03f;
+            //float margin = .03f;
             if (newstate.IsKeyDown(Keys.Up))
             {
-                if (player.RotationAngle < upMax - margin)
-                    player.RotationAngle += rotateSpeed;
-                else if (player.RotationAngle > upMax + margin)
-                    player.RotationAngle -= rotateSpeed;
+                //if (player.RotationAngle < upMax - margin)
+                    //player.RotationAngle += rotateSpeed;
+                //else if (player.RotationAngle > upMax + margin)
+                  //  player.RotationAngle -= rotateSpeed;
             }
+
             if (newstate.IsKeyDown(Keys.Down))
             {
-                if (player.RotationAngle < downMax - margin)
-                    player.RotationAngle += rotateSpeed;
-                else if (player.RotationAngle > downMax + margin)
-                    player.RotationAngle -= rotateSpeed;
+                //if (player.RotationAngle < downMax - margin)
+                //    player.RotationAngle += rotateSpeed;
+                //else if (player.RotationAngle > downMax + margin)
+                //    player.RotationAngle -= rotateSpeed;
             }
+
             if (newstate.IsKeyUp(Keys.Down) && newstate.IsKeyUp(Keys.Up))
             {
-                if (player.RotationAngle < xMax - margin)
+                //if (player.RotationAngle < xMax - margin)
+                //    player.RotationAngle += rotateSpeed;
+                //else if (player.RotationAngle > xMax + margin)
+                //    player.RotationAngle -= rotateSpeed;
+
+                if(newstate.IsKeyDown(Keys.Right))
                     player.RotationAngle += rotateSpeed;
-                else if (player.RotationAngle > xMax + margin)
+                else if(newstate.IsKeyDown(Keys.Left))
                     player.RotationAngle -= rotateSpeed;
             }
         }
@@ -199,7 +207,7 @@ namespace EverDarker
                 {
                     foreach (WallSprite wall in grid[row][i].Walls.Values)
                     {
-                        collision = this.player.CheckCollision(wall.Bounds);
+                        collision = this.player.CheckCollision(wall.Bounds, shadowSprite);
                     }
                 }
             }
@@ -207,27 +215,23 @@ namespace EverDarker
             {
                 if (direction == Keys.Up)
                 {
-                    player.UpdateY(-moveSpeed);
-                    shadowSprite.UpdateY(-moveSpeed);
+                    player.UpdateY(-moveSpeed, shadowSprite);
                 }
                 else if (direction == Keys.Down)
                 {
-                    player.UpdateY(moveSpeed);
-                    shadowSprite.UpdateY(moveSpeed);
+                    player.UpdateY(moveSpeed, shadowSprite);
                 }
                 else if (direction == Keys.Right)
                 {
-                    player.UpdateX(moveSpeed);
-                    shadowSprite.UpdateX(moveSpeed);
+                    //player.UpdateX(moveSpeed, shadowSprite);
                 }
                 else if (direction == Keys.Left)
                 {
-                    player.UpdateX(-moveSpeed);
-                    shadowSprite.UpdateX(-moveSpeed);
+                    //player.UpdateX(-moveSpeed, shadowSprite);
                 }
             }
             else
-                shadowSprite.MoveToLastPosition();
+                shadowSprite.MoveToLastPosition(shadowSprite);
         }
 
         void BasicMovement(GameTime gameTime)
@@ -320,7 +324,7 @@ namespace EverDarker
 
                 if (!walkSound)
                 {
-                    walkSFX.Play();
+                    walkSFX.Play(1);
                     walkSound = true;
                     lastWalk = walkNow;
                 }
