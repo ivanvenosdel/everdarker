@@ -22,6 +22,9 @@ namespace EverDarker
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //Various 
+        float rotateSpeed = (float)Math.PI / 8;
+
         //gif animation
         GifAnimation gif = null;
 
@@ -163,43 +166,8 @@ namespace EverDarker
             shadowSprite.Position.X -= 300;
         }
 
-        void RotateX(KeyboardState newstate, float upMax, float downMax, float xMax)
+        void Move(KeyboardState direction)
         {
-            float rotateSpeed = .03f;
-            //float margin = .03f;
-            if (newstate.IsKeyDown(Keys.Up))
-            {
-                //if (player.RotationAngle < upMax - margin)
-                    //player.RotationAngle += rotateSpeed;
-                //else if (player.RotationAngle > upMax + margin)
-                  //  player.RotationAngle -= rotateSpeed;
-            }
-
-            if (newstate.IsKeyDown(Keys.Down))
-            {
-                //if (player.RotationAngle < downMax - margin)
-                //    player.RotationAngle += rotateSpeed;
-                //else if (player.RotationAngle > downMax + margin)
-                //    player.RotationAngle -= rotateSpeed;
-            }
-
-            if (newstate.IsKeyUp(Keys.Down) && newstate.IsKeyUp(Keys.Up))
-            {
-                //if (player.RotationAngle < xMax - margin)
-                //    player.RotationAngle += rotateSpeed;
-                //else if (player.RotationAngle > xMax + margin)
-                //    player.RotationAngle -= rotateSpeed;
-
-                if(newstate.IsKeyDown(Keys.Right))
-                    player.RotationAngle += rotateSpeed;
-                else if(newstate.IsKeyDown(Keys.Left))
-                    player.RotationAngle -= rotateSpeed;
-            }
-        }
-
-        void Move(Keys direction)
-        {
-            float moveSpeed = 1;
             bool collision = false;
             for (int row = 0; row < grid.Count(); row++)
             {
@@ -213,21 +181,23 @@ namespace EverDarker
             }
             if (!collision)
             {
-                if (direction == Keys.Up)
+                if (direction.IsKeyDown(Keys.Up))
                 {
-                    player.UpdateY(-moveSpeed, shadowSprite);
+                    player.UpdateX(shadowSprite);
                 }
-                else if (direction == Keys.Down)
+                else if (direction.IsKeyDown(Keys.Down))
                 {
-                    player.UpdateY(moveSpeed, shadowSprite);
+                    player.UpdateX(shadowSprite);
                 }
-                else if (direction == Keys.Right)
+
+                else if (direction.IsKeyDown(Keys.Right))
                 {
-                    //player.UpdateX(moveSpeed, shadowSprite);
+                    player.RotationAngle += rotateSpeed;
                 }
-                else if (direction == Keys.Left)
+
+                else if (direction.IsKeyDown(Keys.Left))
                 {
-                    //player.UpdateX(-moveSpeed, shadowSprite);
+                    player.RotationAngle -= rotateSpeed;
                 }
             }
             else
@@ -244,36 +214,7 @@ namespace EverDarker
             if (!player.walking)
                 walkSFX.Play(0);
 
-            if (newstate.IsKeyDown(Keys.Up))
-            {
-                //Rotate
-                float rotateSpeed = .03f;
-                float margin = .03f;
-                if (newstate.IsKeyUp(Keys.Right) && newstate.IsKeyUp(Keys.Left))
-                {
-                    if (player.RotationAngle < 0f - margin)
-                        player.RotationAngle += rotateSpeed;
-                    else if (player.RotationAngle > 0f + margin)
-                        player.RotationAngle -= rotateSpeed;
-                }
-                Move(Keys.Up);
-            }
-            if (newstate.IsKeyDown(Keys.Down))
-            {
-                Move(Keys.Down);
-            }
-            if (newstate.IsKeyDown(Keys.Right))
-            {
-                RotateX(newstate, .785f, 2.355f, 1.57f);
-                Move(Keys.Right);
-            }
-            if (newstate.IsKeyDown(Keys.Left))
-            {
-                RotateX(newstate, -.785f, -2.355f, -1.57f);
-                Move(Keys.Left);
-            }
-            float circle = MathHelper.Pi * 2;
-            player.RotationAngle = player.RotationAngle % circle;
+            Move(newstate);
         }
 
         /// <summary>
