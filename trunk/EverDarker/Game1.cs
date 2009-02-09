@@ -192,11 +192,17 @@ namespace EverDarker
 
                 else if (direction.IsKeyDown(Keys.Right))
                 {
+                    if (player.RotationAngle >= Math.PI)
+                        player.RotationAngle = 0;
+
                     player.RotationAngle += rotateSpeed;
                 }
 
                 else if (direction.IsKeyDown(Keys.Left))
                 {
+                    if (player.RotationAngle >= (2 * Math.PI))
+                        player.RotationAngle = 0;
+
                     player.RotationAngle -= rotateSpeed;
                 }
             }
