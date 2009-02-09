@@ -11,7 +11,6 @@ namespace EverDarker
 {
     class Character : Sprite
     {
-        public float RotationAngle = (float) Math.PI;
         public List<Texture2D> textures;
         int texturesIndex = 1;
         public bool walking = false;
