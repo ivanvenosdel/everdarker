@@ -12,7 +12,8 @@ namespace EverDarker
     {
         #region Members
         //The current position of the Sprite
-        public float RotationAngle = (float)Math.PI/2;
+        //public float RotationAngle = (float) (3 * Math.PI / 4);
+        public float RotationAngle = 0;
         public Vector2 Position = new Vector2(0, 0);
         private Vector2 lastPosition;
         //The texture object used when drawing the sprite
@@ -60,144 +61,143 @@ namespace EverDarker
 
         public void UpdateX(Sprite shadow)
         {
+            int gamespeed = 4;
+
             shadow.lastPosition = new Vector2(shadow.Position.X, shadow.Position.Y);
-            //shadow.Position.X += deltaX;
 
             this.lastPosition = new Vector2(this.Position.X, this.Position.Y);
             if (this.RotationAngle == 0)
             {
-                this.Position.Y -= 1;
-                shadow.Position.Y -= 1;
+                this.Position.Y -= gamespeed;
+                shadow.Position.Y -= gamespeed;
             }
 
             else if(this.RotationAngle == (float)(Math.PI / 8))
             {
-                this.Position.X += 1 / 4;
-                this.Position.Y -= 3 / 8;
+                this.Position.X += (1 / 4) * gamespeed;
+                this.Position.Y -= (3 / 4) * gamespeed;
 
-                shadow.Position.X += 1 / 4;
-                shadow.Position.Y -= 3 / 4;
+                shadow.Position.X += (1 / 4) * gamespeed;
+                shadow.Position.Y -= (3 / 4) * gamespeed;
             }
 
             else if (this.RotationAngle == (float)(Math.PI / 4))
             {
-                this.Position.X += 1 / 2;
-                this.Position.Y -= 1 / 2;
+                this.Position.X += (1 / 2) * gamespeed;
+                this.Position.Y -= (1 / 2) * gamespeed;
 
-                shadow.Position.X += 1 / 2;
-                shadow.Position.Y -= 1 / 2;
+                shadow.Position.X += (1 / 2) * gamespeed;
+                shadow.Position.Y -= (1 / 2) * gamespeed;
             }
 
             else if(this.RotationAngle == (float)(3 * Math.PI / 8))
             {
-                this.Position.X += 3 / 4;
-                this.Position.Y -= 1 / 4;
+                this.Position.X += (3 / 4) * gamespeed;
+                this.Position.Y -= (1 / 4) * gamespeed;
+
+                shadow.Position.X += (3 / 4) * gamespeed;
+                shadow.Position.Y -= (1 / 4) * gamespeed;
             }
 
             else if (this.RotationAngle == (float)(Math.PI / 2))
             {
-                this.Position.X += 1;
+                this.Position.X += gamespeed;
 
-                shadow.Position.X += 1;
+                shadow.Position.X += gamespeed;
             }
 
             else if (this.RotationAngle == (float)(5 * Math.PI / 8))
             {
-                this.Position.X += 3 / 4;
-                this.Position.Y -= 1 / 4;
+                this.Position.X += (3 / 4) * gamespeed;
+                this.Position.Y -= (1 / 4) * gamespeed;
 
-                shadow.Position.X += 3 / 4;
-                shadow.Position.Y -= 1 / 4;
+                shadow.Position.X += (3 / 4) * gamespeed;
+                shadow.Position.Y -= (1 / 4) * gamespeed;
             }
 
             else if (this.RotationAngle == (float)(3 * Math.PI / 4))
             {
-                this.Position.X += 1 / 2;
-                this.Position.Y -= 1 / 2;
+                this.Position.X += (1 / 2) * gamespeed;
+                this.Position.Y -= (1 / 2) * gamespeed;
 
-                shadow.Position.X += 1 / 2;
-                shadow.Position.Y -= 1 / 2;
+                shadow.Position.X += (1 / 2) * gamespeed;
+                shadow.Position.Y -= (1 / 2) * gamespeed;
             }
 
             else if (this.RotationAngle == (float)(7 * Math.PI / 8))
             {
-                this.Position.X += 1 / 4;
-                this.Position.Y -= 3 / 4;
+                this.Position.X += (1 / 4) * gamespeed;
+                this.Position.Y -= (3 / 4) * gamespeed;
 
-                shadow.Position.X += 1 / 4;
-                shadow.Position.Y -= 3 / 4;
+                shadow.Position.X += (1 / 4) * gamespeed;
+                shadow.Position.Y -= (3 / 4) * gamespeed;
             }
 
             else if (this.RotationAngle == (float) (Math.PI))
             {
-                this.Position.Y += 1;
+                this.Position.Y += gamespeed;
 
-                shadow.Position.Y += 1;
+                shadow.Position.Y += gamespeed;
             }
 
             else if(this.RotationAngle == (float) (9 * Math.PI / 8))
             {
-                this.Position.X -= 1 / 4;
-                this.Position.Y += 3 / 4;
+                this.Position.X -= (1 / 4) * gamespeed;
+                this.Position.Y += (3 / 4) * gamespeed;
 
-                shadow.Position.X -= 1 / 4;
-                shadow.Position.Y += 3 / 4;
+                shadow.Position.X -= (1 / 4) * gamespeed;
+                shadow.Position.Y += (3 / 4) * gamespeed;
             }
 
             else if (this.RotationAngle == (float)(5 * Math.PI / 4))
             {
-                this.Position.X -= 1 / 2;
-                this.Position.Y += 1 / 2;
+                this.Position.X -= (1 / 2) * gamespeed;
+                this.Position.Y += (1 / 2) * gamespeed;
 
-                shadow.Position.X -= 1 / 2;
-                shadow.Position.Y += 1 / 2;
+                shadow.Position.X -= (1 / 2) * gamespeed;
+                shadow.Position.Y += (1 / 2) * gamespeed;
             }
 
             else if (this.RotationAngle == (float)(11 * Math.PI / 8))
             {
-                this.Position.X -= 3 / 4;
-                this.Position.Y += 1 / 4;
+                this.Position.X -= (3 / 4) * gamespeed;
+                this.Position.Y += (1 / 4) * gamespeed;
 
-                shadow.Position.X -= 3 / 4;
-                shadow.Position.X += 1 / 4;
+                shadow.Position.X -= (3 / 4) * gamespeed;
+                shadow.Position.X += (1 / 4) * gamespeed;
             }
 
             else if (this.RotationAngle == (float)(3 * Math.PI / 2))
             {
-                this.Position.X -= 1;
-                shadow.Position.X -= 1;
+                this.Position.X -= gamespeed;
+                shadow.Position.X -= gamespeed;
             }
 
             else if (this.RotationAngle == (float)(13 * Math.PI / 8))
             {
-                this.Position.X -= 3 / 4;
-                this.Position.Y += 1 / 4;
+                this.Position.X -= (3 / 4) * gamespeed;
+                this.Position.Y += (1 / 4) * gamespeed;
 
-                shadow.Position.X -= 3 / 4;
-                shadow.Position.Y += 1 / 4;
+                shadow.Position.X -= (3 / 4) * gamespeed;
+                shadow.Position.Y += (1 / 4) * gamespeed;
             }
 
             else if (this.RotationAngle == (float)(7 * Math.PI / 4))
             {
-                this.Position.X -= 1 / 2;
-                this.Position.Y += 1 / 2;
+                this.Position.X -= (1 / 2) * gamespeed;
+                this.Position.Y += (1 / 2) * gamespeed;
 
-                shadow.Position.X -= 1 / 2;
-                shadow.Position.Y += 1 / 2;
+                shadow.Position.X -= (1 / 2) * gamespeed;
+                shadow.Position.Y += (1 / 2) * gamespeed;
             }
 
             else if (this.RotationAngle == (float)(15 * Math.PI / 8))
             {
-                this.Position.X -= 1 / 4;
-                this.Position.Y += 3 / 4;
+                this.Position.X -= (1 / 4) * gamespeed;
+                this.Position.Y += (3 / 4) * gamespeed;
 
-                shadow.Position.X -= 1 / 4;
-                shadow.Position.Y += 3 / 4;
-            }
-
-            else if (this.RotationAngle >= (float)(2 * Math.PI))
-            {
-                this.RotationAngle = 0;
+                shadow.Position.X -= (1 / 4) * gamespeed;
+                shadow.Position.Y += (3 / 4) * gamespeed;
             }
 
             this.Bounds.X = (int)this.Position.X;
