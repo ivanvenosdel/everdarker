@@ -14,8 +14,7 @@ namespace EverDarker
 		public int Column;
 		private static long Seed = 	DateTime.Now.Ticks;
 		static public Random TheRandom = new Random((int)Cell.Seed);
-		
-		
+				
 		public Cell()
 		{
 			//

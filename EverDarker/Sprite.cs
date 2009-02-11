@@ -12,8 +12,7 @@ namespace EverDarker
     {
         #region Members
         //The current position of the Sprite
-        //public float RotationAngle = (float) (3 * Math.PI / 4);
-        public float RotationAngle = 0;
+        public float RotationAngle = (float) (5 * Math.PI / 8);
         public Vector2 Position = new Vector2(0, 0);
         private Vector2 lastPosition;
         //The texture object used when drawing the sprite
@@ -59,9 +58,12 @@ namespace EverDarker
             this.Bounds.Y = (int)this.lastPosition.Y;
         }
 
-        public void UpdateX(Sprite shadow)
+        public void UpdateX(Sprite shadow, bool backwards)
         {
-            int gamespeed = 4;
+            int gamespeed = 2;
+
+            if (backwards)
+                gamespeed = gamespeed * (-1);
 
             shadow.lastPosition = new Vector2(shadow.Position.X, shadow.Position.Y);
 
@@ -74,29 +76,29 @@ namespace EverDarker
 
             else if(this.RotationAngle == (float)(Math.PI / 8))
             {
-                this.Position.X += (1 / 4) * gamespeed;
-                this.Position.Y -= (3 / 4) * gamespeed;
+                this.Position.X += (gamespeed / 4);
+                this.Position.Y -= (3 * gamespeed / 4);
 
-                shadow.Position.X += (1 / 4) * gamespeed;
-                shadow.Position.Y -= (3 / 4) * gamespeed;
+                shadow.Position.X += (gamespeed / 4);
+                shadow.Position.Y -= (3 * gamespeed / 4);
             }
 
             else if (this.RotationAngle == (float)(Math.PI / 4))
             {
-                this.Position.X += (1 / 2) * gamespeed;
-                this.Position.Y -= (1 / 2) * gamespeed;
+                this.Position.X += (gamespeed / 2);
+                this.Position.Y -= (gamespeed / 2);
 
-                shadow.Position.X += (1 / 2) * gamespeed;
-                shadow.Position.Y -= (1 / 2) * gamespeed;
+                shadow.Position.X += (gamespeed / 2);
+                shadow.Position.Y -= (gamespeed / 2);
             }
 
             else if(this.RotationAngle == (float)(3 * Math.PI / 8))
             {
-                this.Position.X += (3 / 4) * gamespeed;
-                this.Position.Y -= (1 / 4) * gamespeed;
+                this.Position.X += (3 * gamespeed / 4);
+                this.Position.Y -= (gamespeed / 4);
 
-                shadow.Position.X += (3 / 4) * gamespeed;
-                shadow.Position.Y -= (1 / 4) * gamespeed;
+                shadow.Position.X += (3 * gamespeed / 4);
+                shadow.Position.Y -= (gamespeed / 4);
             }
 
             else if (this.RotationAngle == (float)(Math.PI / 2))
@@ -108,29 +110,29 @@ namespace EverDarker
 
             else if (this.RotationAngle == (float)(5 * Math.PI / 8))
             {
-                this.Position.X += (3 / 4) * gamespeed;
-                this.Position.Y -= (1 / 4) * gamespeed;
+                this.Position.X += (3 * gamespeed / 4);
+                this.Position.Y += (gamespeed / 4);
 
-                shadow.Position.X += (3 / 4) * gamespeed;
-                shadow.Position.Y -= (1 / 4) * gamespeed;
+                shadow.Position.X += (3 * gamespeed / 4);
+                shadow.Position.Y += (gamespeed / 4);
             }
 
             else if (this.RotationAngle == (float)(3 * Math.PI / 4))
             {
-                this.Position.X += (1 / 2) * gamespeed;
-                this.Position.Y -= (1 / 2) * gamespeed;
+                this.Position.X += (gamespeed / 2);
+                this.Position.Y += (gamespeed / 2);
 
-                shadow.Position.X += (1 / 2) * gamespeed;
-                shadow.Position.Y -= (1 / 2) * gamespeed;
+                shadow.Position.X += (gamespeed / 2);
+                shadow.Position.Y += (gamespeed / 2);
             }
 
             else if (this.RotationAngle == (float)(7 * Math.PI / 8))
             {
-                this.Position.X += (1 / 4) * gamespeed;
-                this.Position.Y -= (3 / 4) * gamespeed;
+                this.Position.X += (gamespeed / 4);
+                this.Position.Y += (3 * gamespeed / 4);
 
-                shadow.Position.X += (1 / 4) * gamespeed;
-                shadow.Position.Y -= (3 / 4) * gamespeed;
+                shadow.Position.X += (gamespeed / 4);
+                shadow.Position.Y += (3 * gamespeed / 4);
             }
 
             else if (this.RotationAngle == (float) (Math.PI))
@@ -142,29 +144,29 @@ namespace EverDarker
 
             else if(this.RotationAngle == (float) (9 * Math.PI / 8))
             {
-                this.Position.X -= (1 / 4) * gamespeed;
-                this.Position.Y += (3 / 4) * gamespeed;
+                this.Position.X -= (gamespeed / 4);
+                this.Position.Y += (3 * gamespeed / 4);
 
-                shadow.Position.X -= (1 / 4) * gamespeed;
-                shadow.Position.Y += (3 / 4) * gamespeed;
+                shadow.Position.X -= (gamespeed / 4);
+                shadow.Position.Y += (3 * gamespeed / 4);
             }
 
             else if (this.RotationAngle == (float)(5 * Math.PI / 4))
             {
-                this.Position.X -= (1 / 2) * gamespeed;
-                this.Position.Y += (1 / 2) * gamespeed;
+                this.Position.X -= (gamespeed / 2);
+                this.Position.Y += (gamespeed / 2);
 
-                shadow.Position.X -= (1 / 2) * gamespeed;
-                shadow.Position.Y += (1 / 2) * gamespeed;
+                shadow.Position.X -= (gamespeed / 2);
+                shadow.Position.Y += (gamespeed / 2);
             }
 
             else if (this.RotationAngle == (float)(11 * Math.PI / 8))
             {
-                this.Position.X -= (3 / 4) * gamespeed;
-                this.Position.Y += (1 / 4) * gamespeed;
+                this.Position.X -= (3 * gamespeed / 4);
+                this.Position.Y += (gamespeed / 4);
 
-                shadow.Position.X -= (3 / 4) * gamespeed;
-                shadow.Position.X += (1 / 4) * gamespeed;
+                shadow.Position.X -= (3 * gamespeed / 4);
+                shadow.Position.X += (gamespeed / 4);
             }
 
             else if (this.RotationAngle == (float)(3 * Math.PI / 2))
@@ -175,29 +177,29 @@ namespace EverDarker
 
             else if (this.RotationAngle == (float)(13 * Math.PI / 8))
             {
-                this.Position.X -= (3 / 4) * gamespeed;
-                this.Position.Y += (1 / 4) * gamespeed;
+                this.Position.X -= (3 * gamespeed / 4);
+                this.Position.Y += (gamespeed / 4);
 
-                shadow.Position.X -= (3 / 4) * gamespeed;
-                shadow.Position.Y += (1 / 4) * gamespeed;
+                shadow.Position.X -= (3 * gamespeed/ 4);
+                shadow.Position.Y += (gamespeed / 4);
             }
 
             else if (this.RotationAngle == (float)(7 * Math.PI / 4))
             {
-                this.Position.X -= (1 / 2) * gamespeed;
-                this.Position.Y += (1 / 2) * gamespeed;
+                this.Position.X -= (gamespeed / 2);
+                this.Position.Y += (gamespeed / 2);
 
-                shadow.Position.X -= (1 / 2) * gamespeed;
-                shadow.Position.Y += (1 / 2) * gamespeed;
+                shadow.Position.X -= (gamespeed / 2);
+                shadow.Position.Y += (gamespeed / 2);
             }
 
             else if (this.RotationAngle == (float)(15 * Math.PI / 8))
             {
-                this.Position.X -= (1 / 4) * gamespeed;
-                this.Position.Y += (3 / 4) * gamespeed;
+                this.Position.X -= (gamespeed / 4);
+                this.Position.Y += (3 * gamespeed/ 4);
 
-                shadow.Position.X -= (1 / 4) * gamespeed;
-                shadow.Position.Y += (3 / 4) * gamespeed;
+                shadow.Position.X -= (gamespeed / 4);
+                shadow.Position.Y += (3 * gamespeed / 4);
             }
 
             this.Bounds.X = (int)this.Position.X;
