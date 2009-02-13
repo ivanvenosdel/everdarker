@@ -260,10 +260,11 @@ namespace EverDarker
                 this.Exit();
 
             // TODO: Add your update logic here
-            while (!hasWon)
+            WinSequence(gameTime);
+
+            if (!hasWon)
             {
                 BasicMovement(gameTime);
-                WinSequence(gameTime);
             }
 
             base.Update(gameTime);
@@ -331,17 +332,17 @@ namespace EverDarker
             spriteBatch.Draw(shadows[shadowFrame], shadowSprite.Position, Color.White);
             spriteBatch.End();
 
-            if (hasWon)
-                spriteBatch.Draw(WinTex, new Vector2(350, 350), Color.White);
+            //if (hasWon)
+            //    spriteBatch.Draw(WinTex, new Vector2(350, 350), Color.White);
 
-            //if (gameTime.TotalGameTime.TotalSeconds < 18)
-            //{
-            //    spriteBatch.Begin();
-            //    spriteBatch.Draw(gif.GetTexture(), new Rectangle(0, 0, graphics.PreferredBackBufferWidth , graphics.PreferredBackBufferHeight), Color.White);
-            //    spriteBatch.End();
+            if (gameTime.TotalGameTime.TotalSeconds < 18)
+            {
+                spriteBatch.Begin();
+                spriteBatch.Draw(gif.GetTexture(), new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
+                spriteBatch.End();
 
-            //    gif.Update(30000);
-            //}
+                gif.Update(30000);
+            }
            
             base.Draw(gameTime);
         }
