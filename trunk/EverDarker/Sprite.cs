@@ -12,7 +12,7 @@ namespace EverDarker
     {
         #region Members
         //The current position of the Sprite
-        public float RotationAngle = (float) (5 * Math.PI / 8);
+        public float RotationAngle = 0;
         public Vector2 Position = new Vector2(0, 0);
         private Vector2 lastPosition;
         //The texture object used when drawing the sprite
@@ -58,161 +58,68 @@ namespace EverDarker
             this.Bounds.Y = (int)this.lastPosition.Y;
         }
 
-        public void UpdateX(Sprite shadow, bool backwards)
+        public void UpdatePosition(Sprite shadow, bool backwards)
         {
             int gamespeed = 2;
+            float byPi = 0;
 
             if (backwards)
                 gamespeed = gamespeed * (-1);
 
             shadow.lastPosition = new Vector2(shadow.Position.X, shadow.Position.Y);
-
             this.lastPosition = new Vector2(this.Position.X, this.Position.Y);
-            if (this.RotationAngle == 0)
+
+            //For the change in the X Position
+            if (this.RotationAngle <= (Math.PI / 2))
             {
-                this.Position.Y -= gamespeed;
-                shadow.Position.Y -= gamespeed;
-            }
+                byPi = (float)(this.RotationAngle / (Math.PI / 2));
+                this.Position.X += (float)(byPi * gamespeed);
+                this.Position.Y -= (float)((1 - byPi) * gamespeed);
 
-            else if(this.RotationAngle == (float)(Math.PI / 8))
+                shadow.Position.X += (float)(byPi * gamespeed);
+                shadow.Position.Y -= (float)((1 - byPi) * gamespeed);
+            }
+            else if ((this.RotationAngle > (Math.PI / 2)) && (this.RotationAngle <= (Math.PI)))
             {
-                this.Position.X += (gamespeed / 4);
-                this.Position.Y -= (3 * gamespeed / 4);
+                if (this.RotationAngle == (Math.PI))
+                {
+                    this.Position.Y += gamespeed;
+                    shadow.Position.Y += gamespeed;
+                }
+                else
+                {
+                    byPi = (float)(this.RotationAngle / Math.PI);
+                    this.Position.X += (float)((1 - byPi) * gamespeed);
+                    this.Position.Y += (float)(byPi * gamespeed);
 
-                shadow.Position.X += (gamespeed / 4);
-                shadow.Position.Y -= (3 * gamespeed / 4);
+                    shadow.Position.X += (float)((1 - byPi) * gamespeed);
+                    shadow.Position.Y += (float)(byPi * gamespeed);
+                }
             }
-
-            else if (this.RotationAngle == (float)(Math.PI / 4))
+            else if ((this.RotationAngle > (Math.PI)) && (this.RotationAngle <= (3 * Math.PI / 2)))
             {
-                this.Position.X += (gamespeed / 2);
-                this.Position.Y -= (gamespeed / 2);
+                byPi = (float)(this.RotationAngle / (Math.PI / 2) - 2);
 
-                shadow.Position.X += (gamespeed / 2);
-                shadow.Position.Y -= (gamespeed / 2);
+                this.Position.X -= (float)(byPi * gamespeed);
+                this.Position.Y += (float)((1 - byPi) * gamespeed);
+
+                shadow.Position.X -= (float)(byPi * gamespeed); 
+                shadow.Position.Y += (float)((1 - byPi) * gamespeed);
             }
-
-            else if(this.RotationAngle == (float)(3 * Math.PI / 8))
+            else if((this.RotationAngle > (3 * Math.PI / 2)) && (this.RotationAngle <= (2 * Math.PI)))
             {
-                this.Position.X += (3 * gamespeed / 4);
-                this.Position.Y -= (gamespeed / 4);
+                byPi = (float)(this.RotationAngle / (Math.PI / 2) - 3);
 
-                shadow.Position.X += (3 * gamespeed / 4);
-                shadow.Position.Y -= (gamespeed / 4);
+                this.Position.X -= (float)(byPi * gamespeed);
+                this.Position.Y += (float)((1 - byPi) * gamespeed);
+
+                shadow.Position.X -= (float)(byPi * gamespeed);
+                shadow.Position.Y += (float)((1 - byPi) * gamespeed);
             }
-
-            else if (this.RotationAngle == (float)(Math.PI / 2))
-            {
-                this.Position.X += gamespeed;
-
-                shadow.Position.X += gamespeed;
-            }
-
-            else if (this.RotationAngle == (float)(5 * Math.PI / 8))
-            {
-                this.Position.X += (3 * gamespeed / 4);
-                this.Position.Y += (gamespeed / 4);
-
-                shadow.Position.X += (3 * gamespeed / 4);
-                shadow.Position.Y += (gamespeed / 4);
-            }
-
-            else if (this.RotationAngle == (float)(3 * Math.PI / 4))
-            {
-                this.Position.X += (gamespeed / 2);
-                this.Position.Y += (gamespeed / 2);
-
-                shadow.Position.X += (gamespeed / 2);
-                shadow.Position.Y += (gamespeed / 2);
-            }
-
-            else if (this.RotationAngle == (float)(7 * Math.PI / 8))
-            {
-                this.Position.X += (gamespeed / 4);
-                this.Position.Y += (3 * gamespeed / 4);
-
-                shadow.Position.X += (gamespeed / 4);
-                shadow.Position.Y += (3 * gamespeed / 4);
-            }
-
-            else if (this.RotationAngle == (float) (Math.PI))
-            {
-                this.Position.Y += gamespeed;
-
-                shadow.Position.Y += gamespeed;
-            }
-
-            else if(this.RotationAngle == (float) (9 * Math.PI / 8))
-            {
-                this.Position.X -= (gamespeed / 4);
-                this.Position.Y += (3 * gamespeed / 4);
-
-                shadow.Position.X -= (gamespeed / 4);
-                shadow.Position.Y += (3 * gamespeed / 4);
-            }
-
-            else if (this.RotationAngle == (float)(5 * Math.PI / 4))
-            {
-                this.Position.X -= (gamespeed / 2);
-                this.Position.Y += (gamespeed / 2);
-
-                shadow.Position.X -= (gamespeed / 2);
-                shadow.Position.Y += (gamespeed / 2);
-            }
-
-            else if (this.RotationAngle == (float)(11 * Math.PI / 8))
-            {
-                this.Position.X -= (3 * gamespeed / 4);
-                this.Position.Y += (gamespeed / 4);
-
-                shadow.Position.X -= (3 * gamespeed / 4);
-                shadow.Position.X += (gamespeed / 4);
-            }
-
-            else if (this.RotationAngle == (float)(3 * Math.PI / 2))
-            {
-                this.Position.X -= gamespeed;
-                shadow.Position.X -= gamespeed;
-            }
-
-            else if (this.RotationAngle == (float)(13 * Math.PI / 8))
-            {
-                this.Position.X -= (3 * gamespeed / 4);
-                this.Position.Y += (gamespeed / 4);
-
-                shadow.Position.X -= (3 * gamespeed/ 4);
-                shadow.Position.Y += (gamespeed / 4);
-            }
-
-            else if (this.RotationAngle == (float)(7 * Math.PI / 4))
-            {
-                this.Position.X -= (gamespeed / 2);
-                this.Position.Y += (gamespeed / 2);
-
-                shadow.Position.X -= (gamespeed / 2);
-                shadow.Position.Y += (gamespeed / 2);
-            }
-
-            else if (this.RotationAngle == (float)(15 * Math.PI / 8))
-            {
-                this.Position.X -= (gamespeed / 4);
-                this.Position.Y += (3 * gamespeed/ 4);
-
-                shadow.Position.X -= (gamespeed / 4);
-                shadow.Position.Y += (3 * gamespeed / 4);
-            }
+            else
+                this.RotationAngle = 0;
 
             this.Bounds.X = (int)this.Position.X;
-            this.Bounds.Y = (int)this.Position.Y;
-        }
-
-        public void UpdateY(float deltaY, Sprite shadow)
-        {
-            shadow.lastPosition = new Vector2(shadow.Position.X, shadow.Position.Y);
-            shadow.Position.Y += deltaY;
-
-            this.lastPosition = new Vector2(this.Position.X, this.Position.Y);
-            this.Position.Y += deltaY;
             this.Bounds.Y = (int)this.Position.Y;
         }
     }

@@ -23,7 +23,7 @@ namespace EverDarker
         SpriteBatch spriteBatch;
 
         //Various 
-        float rotateSpeed = (float)Math.PI / 8;
+        float rotateSpeed = (float)Math.PI / 16;
 
         //gif animation
         GifAnimation gif = null;
@@ -68,6 +68,11 @@ namespace EverDarker
         //Vectors
         Vector2 ZeroPosition;
 
+        //Win Sequence
+        Rectangle WinRec = new Rectangle(680, 680, 40, 40);
+        Texture2D WinTex;
+        bool hasWon = false;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -107,6 +112,9 @@ namespace EverDarker
 
             //gif animation
             gif = Content.Load<GifAnimation>("IntroToGame-Everdarker");
+
+            //Win Sequence
+            WinTex = Content.Load<Texture2D>("YouWin");
 
             //Audio
             bgMusic = Content.Load<SoundEffect>("Audio-main");
@@ -182,22 +190,17 @@ namespace EverDarker
             if (!collision)
             {
                 if (direction.IsKeyDown(Keys.Up))
-                {
-                    player.UpdateX(shadowSprite, false);
-                }
+                    player.UpdatePosition(shadowSprite, false);
                 else if (direction.IsKeyDown(Keys.Down))
-                {
-                    player.UpdateX(shadowSprite, true);
-                }
+                    player.UpdatePosition(shadowSprite, true);
 
-                else if (direction.IsKeyDown(Keys.Right))
+                if (direction.IsKeyDown(Keys.Right))
                 {
                     if (player.RotationAngle >= (float) (2* Math.PI))
                         player.RotationAngle = 0;
 
                     player.RotationAngle += rotateSpeed;
                 }
-
                 else if (direction.IsKeyDown(Keys.Left))
                 {
                     if (player.RotationAngle >= (float) (2 * Math.PI))
@@ -223,6 +226,19 @@ namespace EverDarker
             Move(newstate);
         }
 
+        //Win Sequence
+        void WinSequence(GameTime gameTime)
+        {
+            if (WinRec.Intersects(player.Bounds))
+            {
+                player.RotationAngle = (float)(Math.PI / 2);
+                while (player.Position.X < 700)
+                    player.Position.X += 1;
+
+                hasWon = true;
+            }
+        }
+
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
@@ -244,7 +260,11 @@ namespace EverDarker
                 this.Exit();
 
             // TODO: Add your update logic here
-            BasicMovement(gameTime);
+            while (!hasWon)
+            {
+                BasicMovement(gameTime);
+                WinSequence(gameTime);
+            }
 
             base.Update(gameTime);
         }
@@ -310,7 +330,10 @@ namespace EverDarker
             }
             spriteBatch.Draw(shadows[shadowFrame], shadowSprite.Position, Color.White);
             spriteBatch.End();
-            
+
+            if (hasWon)
+                spriteBatch.Draw(WinTex, new Vector2(350, 350), Color.White);
+
             //if (gameTime.TotalGameTime.TotalSeconds < 18)
             //{
             //    spriteBatch.Begin();

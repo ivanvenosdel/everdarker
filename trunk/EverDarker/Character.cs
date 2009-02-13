@@ -26,6 +26,8 @@ namespace EverDarker
 
             this.Position = new Vector2(32, 32);
             this.Bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.spriteTexture.Width, this.spriteTexture.Height);
+
+            this.RotationAngle = (float)(Math.PI);
         }
 
         //Draw the sprite to the screen 
