@@ -1,0 +1,1 @@
+The player begins as an intern in an office building that is slowly losing power. The boss man tells the intern to 'Fix the problem or your fired' so the player must get to the source of the problem and fix it or his job will come to an abrupt end.
